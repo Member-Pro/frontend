@@ -10,12 +10,17 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "axios": "^0.21.1",
+    "bootstrap": "^5.0.1",
+    "bootstrap-vue": "^2.21.2",
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
+    "vue-axios": "^3.2.4",
     "vue-class-component": "^7.2.3",
     "vue-property-decorator": "^9.1.2",
     "vue-router": "^3.2.0",
-    "vuex": "^3.4.0"
+    "vuex": "^3.4.0",
+    "vuex-map-fields": "^1.4.1"
   },
   "devDependencies": {
     "@types/jest": "^24.0.19",
@@ -54,7 +59,27 @@
     "parserOptions": {
       "ecmaVersion": 2020
     },
-    "rules": {},
+    "rules": {
+      "semi": [
+        1,
+        "always"
+      ],
+      "comma-dangle": [
+        "warn",
+        "always-multiline"
+      ],
+      "array-bracket-spacing": [
+        "warn",
+        "always"
+      ],
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/member-ordering": "off",
+      "space-before-function-paren": "off",
+      "operator-linebreak": [
+        "error",
+        "before"
+      ]
+    },
     "overrides": [
       {
         "files": [

@@ -1,6 +1,16 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <h1>Welcome to Your Vue.js + TypeScript App</h1>
+    <main-nav />
   </div>
 </template>
+
+<script lang="ts">
+import Vue from 'vue';
+import MainNav from '@/components/MainNav.vue';
+
+export default Vue.extend({
+  components: {
+    MainNav,
+  },
+});
+</script>
