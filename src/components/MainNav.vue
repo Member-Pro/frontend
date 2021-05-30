@@ -20,7 +20,7 @@
           <b-nav-item to="/login" v-if="!isAuthenticated">Sign in</b-nav-item>
           <b-nav-item-dropdown right v-if="isAuthenticated">
             <!-- Using 'button-content' slot -->
-            <template slot="button-content">{{ currentUser ? currentUser.firstName : '' }}</template>
+            <template slot="button-content">{{ userName }}</template>
             <b-dropdown-item to="/user/profile">Profile</b-dropdown-item>
             <b-dropdown-item href="#" v-on:click="logout">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
@@ -32,48 +32,33 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapGetters } from 'vuex';
+import { Auth } from 'aws-amplify';
+import AuthHelpers from '@/authHelpers';
 
 export default Vue.extend({
   data () {
     return {
       isAuthenticated: false,
       currentUser: { },
+      userName: '',
     };
   },
   created () {
     this.authenticate();
-  },
-  computed: {
-    ...mapGetters([
-    ]),
   },
   watch: {
     $route: 'authenticate',
   },
   methods: {
     async authenticate () {
-      // try {
-      //   const user = await Auth.currentAuthenticatedUser();
-      //   if (user !== null) {
-      //     this.isAuthenticated = true;
-      //     this.currentUser = {
-      //       firstName: user.attributes.given_name,
-      //       lastName: user.attributes.family_name
-      //     }
-      //   } else {
-      //     this.isAuthenticated = false;
-      //     this.currentUser = {};
-      //   }
-      // } catch (err) {
-      //   // silently fail because the user is not logged in
-      // }
+      this.isAuthenticated = await AuthHelpers.isAuthenticated();
+      this.userName = await AuthHelpers.getUserName();
     },
     async logout () {
-      // await Auth.signOut();
-      // await this.authenticate();
+      await Auth.signOut();
+      await this.authenticate();
 
-      // this.$router.push({ name: 'login' });
+      this.$router.push({ name: 'login' });
     },
   },
 });
