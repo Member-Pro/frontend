@@ -8,10 +8,7 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
           <template v-if="isAuthenticated">
-            <b-nav-item to="/albums/mine">My Albums</b-nav-item>
-            <!-- <b-nav-item :to="{name: 'roadsList'}">Railroads</b-nav-item>
-            <b-nav-item :to="{name: 'locomotiveList'}">Locomotives</b-nav-item>
-            <b-nav-item :to="{name: 'userList'}">Users</b-nav-item> -->
+            <b-nav-item to="/achievements">Achievements</b-nav-item>
           </template>
         </b-navbar-nav>
 

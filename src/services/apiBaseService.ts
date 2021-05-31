@@ -1,3 +1,4 @@
+import { Auth } from 'aws-amplify';
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 // import store from '../store';
 
@@ -8,8 +9,14 @@ const instance = axios.create({
 instance.interceptors.request.use(async (config: AxiosRequestConfig) => {
   // TODO: increase API calls
 
-  // TODO: get access token for user
-  // let accessToken = '';
+  let accessToken = '';
+
+  try {
+    accessToken = (await Auth.currentSession()).getIdToken().getJwtToken();
+    config.headers.Authorization = `Bearer ${accessToken}`;
+  } catch {
+    // Could not get access token; request will not be auth'd
+  }
 
   return config;
 },

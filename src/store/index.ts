@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex, { createLogger } from 'vuex';
+import Achievements from './modules/achievements';
 import Auth from './modules/auth';
 import Geography from './modules/geography';
 
@@ -29,6 +30,7 @@ export default new Vuex.Store({
     },
   },
   modules: {
+    achievements: Achievements,
     auth: Auth,
     Geography,
   },
