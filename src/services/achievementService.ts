@@ -1,5 +1,6 @@
 import api from './apiBaseService';
 import Achievement from '@/models/achievements/achievement';
+import AchievementStep from '@/models/achievements/achievementStep';
 
 export default {
   async findById(id: number): Promise<Achievement> {
@@ -14,5 +15,12 @@ export default {
 
     const achievements = response.data.map((x: any) => new Achievement(x));
     return achievements;
+  },
+
+  async getStepsForAchievement(achievementId: number): Promise<AchievementStep> {
+    const response = await api.get(`achievements/${achievementId}/steps`);
+
+    const steps = response.data.map((x: any) => new AchievementStep(x));
+    return steps;
   },
 };

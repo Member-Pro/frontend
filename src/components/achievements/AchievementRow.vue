@@ -5,7 +5,11 @@
     </div>
 
     <div class="info">
-      <h4>{{ achievement.name }}</h4>
+      <h4>
+        <router-link :to="{name: 'achievementDetails', params: { achievementId: achievement.id } }">
+          {{ achievement.name }}
+        </router-link>
+      </h4>
       <p class="description">
         {{ achievement.description }}
       </p>

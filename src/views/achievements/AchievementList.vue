@@ -11,8 +11,6 @@
       of Lorem Ipsum.
     </p>
 
-    <h2>Available Achievements</h2>
-
     <b-skeleton-wrapper :loading="isLoading">
       <template #loading>
         <b-skeleton width="85%"></b-skeleton>

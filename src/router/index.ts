@@ -23,7 +23,8 @@ const routes: Array<RouteConfig> = [
     component: GenericRouterView,
     meta: { requiresAuth: true },
     children: [
-      { path: '', name: 'achievementList', component: () => import('@/views/achievements/AchievementList.vue') }
+      { path: '', name: 'achievementList', component: () => import('@/views/achievements/AchievementList.vue') },
+      { path: ':achievementId', name: 'achievementDetails', component: () => import('@/views/achievements/Details.vue'), props: true },
     ]
   },
 ];
