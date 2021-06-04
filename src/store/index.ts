@@ -2,7 +2,8 @@ import Vue from 'vue';
 import Vuex, { createLogger } from 'vuex';
 import Achievements from './modules/achievements';
 import Auth from './modules/auth';
-import Geography from './modules/geography';
+import geography from './modules/geography';
+import { createToastModule } from './modules/toast';
 
 Vue.use(Vuex);
 
@@ -32,7 +33,8 @@ export default new Vuex.Store({
   modules: {
     achievements: Achievements,
     auth: Auth,
-    Geography,
+    geography,
+    toast: createToastModule(),
   },
   plugins: [
     logger,
