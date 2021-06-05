@@ -9,6 +9,7 @@
         <b-navbar-nav>
           <template v-if="isAuthenticated">
             <b-nav-item to="/achievements">Achievements</b-nav-item>
+            <b-nav-item to="/profile">My Profile</b-nav-item>
           </template>
         </b-navbar-nav>
 

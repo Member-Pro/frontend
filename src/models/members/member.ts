@@ -21,11 +21,17 @@ export default class Member {
 
   public phoneNumber = '';
 
+  public regionId = 0;
+  public divisionId = 0;
+
   public showInDirectory = false;
+
+  public biography = '';
+  public interests = '';
 
   constructor(data?: any) {
     if (data) {
       Object.assign(this, data);
     }
-  };
+  }
 }

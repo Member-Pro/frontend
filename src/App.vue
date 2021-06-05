@@ -24,10 +24,12 @@ export default Vue.extend({
   async created() {
     // Always want these available so just load them into state
     await this.loadCountries();
+    await this.loadRegions();
   },
   methods: {
     ...mapActions('geography', [
       'loadCountries',
+      'loadRegions',
     ]),
   },
 });

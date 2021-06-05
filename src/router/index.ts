@@ -18,6 +18,17 @@ const routes: Array<RouteConfig> = [
   ...AccountRoutes,
 
   {
+    path: '/profile',
+    name: 'profile',
+    component: GenericRouterView,
+    meta: { requiresAuth: true },
+    children: [
+      { path: '', name: 'profileDashboard', component: () => import('@/views/user/Profile.vue') },
+      { path: 'edit', name: 'editProfile', component: () => import('@/views/user/UpdateProfile.vue') },
+    ]
+  },
+
+  {
     path: '/achievements',
     name: 'achievements',
     component: GenericRouterView,
