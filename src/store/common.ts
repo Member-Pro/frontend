@@ -21,9 +21,9 @@ export function addInfoToast(dispatch: Function, message: string): void {
 }
 
 export function addWarningToast(dispatch: Function, message: string): void {
-  dispatch(ADD_TOAST, new Toast('warn', message), { root: true });
+  dispatch(ADD_TOAST, new Toast('warning', message), { root: true });
 }
 
 export function addErrorToast(dispatch: Function, message: string): void {
-  dispatch(ADD_TOAST, new Toast('error', message), { root: true });
+  dispatch(ADD_TOAST, new Toast('danger', message), { root: true });
 }

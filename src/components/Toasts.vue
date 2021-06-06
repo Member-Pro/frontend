@@ -22,8 +22,8 @@ export default Vue.extend({
       switch (toast.type) {
         case 'info': return 'Heads up';
         case 'success': return 'Success';
-        case 'warn': return 'Warning';
-        case 'error': return 'Error';
+        case 'warning': return 'Warning';
+        case 'danger': return 'Error';
       }
     },
   },
