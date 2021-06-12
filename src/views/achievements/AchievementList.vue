@@ -19,7 +19,11 @@
       </template>
 
       <div class="achievement-list">
-        <achievement-row v-for="achievement in achievements" :achievement="achievement" :key="achievement.id" />
+        <achievement-row
+          v-for="achievement in achievements"
+          :key="achievement.id"
+          :achievement="achievement"
+        />
       </div>
     </b-skeleton-wrapper>
   </div>
@@ -42,10 +46,14 @@ export default Vue.extend({
   },
   async created() {
     await this.loadAchievements();
+    await this.loadTrackedAchievements();
   },
   methods: {
     ...mapActions('achievements', [
       'loadAchievements',
+    ]),
+    ...mapActions('memberAchievements', [
+      'loadTrackedAchievements',
     ]),
   },
 });

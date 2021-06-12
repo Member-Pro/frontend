@@ -9,9 +9,13 @@
       </template>
 
       <template v-if="currentAchievement">
-        <h1>
-          {{ currentAchievement.name }}
-        </h1>
+        <div class="d-flex justify-content-between align-items-baseline">
+          <h1>
+            {{ currentAchievement.name }}
+          </h1>
+
+          <track-achievement-toggle :achievementId="currentAchievement.id" />
+        </div>
 
         <div class="description my-2">
           {{ currentAchievement.description }}
@@ -34,8 +38,10 @@
 <script lang="ts">
 import { mapActions, mapGetters } from 'vuex';
 import Vue from 'vue';
+import TrackAchievementToggle from '@/components/achievements/TrackAchievementToggle.vue';
 
 export default Vue.extend({
+  components: { TrackAchievementToggle },
   props: {
     achievementId: {
       required: true,
@@ -50,6 +56,7 @@ export default Vue.extend({
   },
   async created() {
     await this.refreshView();
+    await this.loadTrackedAchievements();
   },
   watch: {
     achievementId: 'refreshView',
@@ -57,6 +64,9 @@ export default Vue.extend({
   methods: {
     ...mapActions('achievements', [
       'loadAchievement',
+    ]),
+    ...mapActions('memberAchievements', [
+      'loadTrackedAchievements',
     ]),
 
     async refreshView() {

@@ -35,3 +35,17 @@ export default class Member {
     }
   }
 }
+
+export class SimpleMember {
+  public id = 0;
+
+  public firstName = '';
+  public lastName = '';
+
+  public status = 0;
+  public joinedOn = '';
+
+  public emailAddress = '';
+
+  public dateOfBirth = '';
+}

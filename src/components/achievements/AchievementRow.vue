@@ -13,13 +13,18 @@
       <p class="description">
         {{ achievement.description }}
       </p>
+
+      <track-achievement-toggle :achievementId="achievement.id" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import TrackAchievementToggle from './TrackAchievementToggle.vue';
+
 export default Vue.extend({
+  components: { TrackAchievementToggle },
   props: {
     achievement: {
       type: Object,

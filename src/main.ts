@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import BootstrapVue from 'bootstrap-vue';
+import BootstrapVue, { IconsPlugin } from 'bootstrap-vue';
 import { Auth } from 'aws-amplify';
 import authConfig from './AuthConfig';
 import App from './App.vue'
@@ -9,6 +9,7 @@ import store from './store'
 import 'bootstrap/scss/bootstrap.scss';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 Vue.use(BootstrapVue);
+Vue.use(IconsPlugin);
 
 Vue.config.productionTip = false;
 
