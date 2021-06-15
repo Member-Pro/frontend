@@ -75,7 +75,7 @@ export default Vue.extend({
     viewType: 'updateParams',
   },
   async created() {
-    this.viewType = this.$route.query.viewType;
+    this.viewType = this.$route.query.viewType ?? 'all';
 
     await this.loadAchievements();
     await this.loadTrackedAchievements();
@@ -88,7 +88,9 @@ export default Vue.extend({
       'loadTrackedAchievements',
     ]),
     updateParams() {
-      this.$router.push({ query: { viewType: this.viewType } });
+      if (this.$route.query.viewType !== this.viewType) {
+        this.$router.push({ query: { viewType: this.viewType } });
+      }
     },
   },
 });

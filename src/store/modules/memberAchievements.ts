@@ -1,22 +1,27 @@
+import MemberAchievement from '@/models/members/memberAchievement';
 import TrackedAchievement, { CreateTrackedAchievement } from '@/models/members/trackedAchievement';
+import memberAchievementService from '@/services/memberAchievementService';
 import trackedAchievementService from '@/services/trackedAchievementService';
 import { addErrorToast, addSuccessToast, CommitDispatchFunction, CommitDispatchStateFunction } from '../common';
 
 interface MemberAchievementState {
   isLoading: boolean;
   isSaving: boolean;
+  memberAchievements: MemberAchievement[];
   trackedAchievements: TrackedAchievement[];
 }
 
 const state: MemberAchievementState = {
   isLoading: false,
   isSaving: false,
+  memberAchievements: [],
   trackedAchievements: [],
 };
 
 const getters = {
   isLoading: (state: MemberAchievementState): boolean => state.isLoading,
   isSaving: (state: MemberAchievementState): boolean => state.isSaving,
+  memberAchievements: (state: MemberAchievementState): MemberAchievement[] => state.memberAchievements,
   trackedAchievements: (state: MemberAchievementState): TrackedAchievement[] => state.trackedAchievements,
   trackedAchievementIds: (state: MemberAchievementState): number[] =>
     state.trackedAchievements.map((a: TrackedAchievement) => a.achievementId),
@@ -29,6 +34,10 @@ const mutations = {
 
   SET_IS_SAVING(state: MemberAchievementState, value: boolean): void {
     state.isSaving = value;
+  },
+
+  SET_MEMBER_ACHIEVEMENTS(state: MemberAchievementState, value: MemberAchievement[]): void {
+    state.memberAchievements = value;
   },
 
   SET_TRACKED_ACHIEVEMENTS(state: MemberAchievementState, value: TrackedAchievement[]): void {
@@ -45,6 +54,19 @@ const mutations = {
 };
 
 const actions = {
+  async loadMemberAchievements({ dispatch, commit }: CommitDispatchFunction, memberId: number): Promise<void> {
+    commit('SET_IS_LOADING', true);
+
+    try {
+      const achievements = await memberAchievementService.getByMemberId(memberId);
+      commit('SET_MEMBER_ACHIEVEMENTS', achievements);
+    } catch {
+      addErrorToast(dispatch, 'There was an error loading the member\'s achievements.');
+    }
+
+    commit('SET_IS_LOADING', false);
+  },
+
   async loadTrackedAchievements({ dispatch, commit }: CommitDispatchFunction): Promise<void> {
     commit('SET_IS_LOADING', true);
 

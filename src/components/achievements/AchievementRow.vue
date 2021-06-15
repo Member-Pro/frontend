@@ -10,11 +10,11 @@
           {{ achievement.name }}
         </router-link>
       </h4>
-      <p class="description">
+      <p class="description" v-if="showDescription">
         {{ achievement.description }}
       </p>
 
-      <track-achievement-toggle :achievementId="achievement.id" />
+      <track-achievement-toggle :achievementId="achievement.id" v-if="showTrackButton" />
     </div>
   </div>
 </template>
@@ -29,6 +29,14 @@ export default Vue.extend({
     achievement: {
       type: Object,
       required: true,
+    },
+    showDescription: {
+      type: Boolean,
+      default: true,
+    },
+    showTrackButton: {
+      type: Boolean,
+      default: true,
     },
   },
 });

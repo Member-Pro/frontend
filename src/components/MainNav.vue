@@ -8,6 +8,7 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
           <template v-if="isAuthenticated">
+            <b-nav-item to="/members">Members</b-nav-item>
             <b-nav-item to="/achievements">Achievements</b-nav-item>
             <b-nav-item to="/profile">My Profile</b-nav-item>
           </template>

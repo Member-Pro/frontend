@@ -3,6 +3,7 @@ import Vuex, { createLogger } from 'vuex';
 import Achievements from './modules/achievements';
 import Auth from './modules/auth';
 import geography from './modules/geography';
+import members from './modules/members';
 import memberAchievements from './modules/memberAchievements';
 import user from './modules/user';
 import { createToastModule } from './modules/toast';
@@ -36,6 +37,7 @@ export default new Vuex.Store({
     achievements: Achievements,
     auth: Auth,
     geography,
+    members,
     memberAchievements,
     toast: createToastModule(),
     user,

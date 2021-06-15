@@ -48,4 +48,10 @@ export class SimpleMember {
   public emailAddress = '';
 
   public dateOfBirth = '';
+
+  constructor(data?: any) {
+    if (data) {
+      Object.assign(this, data);
+    }
+  }
 }

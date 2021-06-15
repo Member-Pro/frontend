@@ -38,6 +38,17 @@ const routes: Array<RouteConfig> = [
       { path: ':achievementId', name: 'achievementDetails', component: () => import('@/views/achievements/Details.vue'), props: true },
     ]
   },
+
+  {
+    path: '/members',
+    name: 'members',
+    component: GenericRouterView,
+    meta: { requiresAuth: true },
+    children: [
+      { path: '', name: 'memberList', component: () => import('@/views/members/MemberList.vue') },
+      { path: ':memberId', name: 'memberProfile', component: () => import('@/views/members/ViewProfile.vue'), props: true },
+    ]
+  },
 ];
 
 const router = new VueRouter({
