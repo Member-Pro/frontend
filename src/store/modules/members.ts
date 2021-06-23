@@ -1,6 +1,6 @@
 import Member from '@/models/members/member';
 import memberService from '@/services/memberService';
-import { addErrorToast, addSuccessToast, CommitDispatchFunction, CommitDispatchStateFunction } from '../common';
+import { addErrorToast, CommitFunction } from '../common';
 
 interface MemberState {
   isLoading: boolean;
@@ -35,20 +35,20 @@ const mutations = {
 };
 
 const actions = {
-  async loadMembers({ dispatch, commit }: CommitDispatchFunction): Promise<void> {
+  async loadMembers({ commit }: CommitFunction): Promise<void> {
     commit('SET_IS_LOADING', true);
 
     try {
       const members = await memberService.getMembers();
       commit('SET_MEMBERS', members);
     } catch {
-      addErrorToast(dispatch, 'There was an error loading the members.');
+      addErrorToast('There was an error loading the members.');
     }
 
     commit('SET_IS_LOADING', false);
   },
 
-  async loadMember({ dispatch, commit }: CommitDispatchFunction, memberId: number): Promise<void> {
+  async loadMember({ commit }: CommitFunction, memberId: number): Promise<void> {
     commit('SET_IS_LOADING', true);
 
     try {
@@ -56,7 +56,7 @@ const actions = {
       const member = await memberService.findById(memberId);
       commit('SET_CURRENT_MEMBER', member);
     } catch {
-      addErrorToast(dispatch, 'There was an error loading the member.');
+      addErrorToast('There was an error loading the member.');
     }
 
     commit('SET_IS_LOADING', false);

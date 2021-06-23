@@ -38,30 +38,30 @@ const mutations = {
 };
 
 const actions = {
-  async loadCurrentUser({ commit, dispatch }: { commit: any, dispatch: any }): Promise<void> {
+  async loadCurrentUser({ commit }: { commit: any, dispatch: any }): Promise<void> {
     commit('SET_IS_LOADING', true);
 
     try {
       const member = await UserService.getCurrentMember();
       commit('SET_CURRENT_USER', member);
     } catch {
-      addErrorToast(dispatch, 'There was an error retrieving your profile. Please refresh to try again.');
+      addErrorToast('There was an error retrieving your profile. Please refresh to try again.');
     }
 
     commit('SET_IS_LOADING', false);
   },
 
-  async update({ commit, dispatch, state }: CommitDispatchStateFunction<UserState>): Promise<void> {
+  async update({ commit, state }: CommitDispatchStateFunction<UserState>): Promise<void> {
     commit('SET_IS_SAVING', true);
 
     try {
       if (state.currentUser) {
         await UserService.update(state.currentUser);
 
-        addSuccessToast(dispatch, 'Your profile has been updated.');
+        addSuccessToast('Your profile has been updated.');
       }
     } catch {
-      addErrorToast(dispatch, 'There was an error saving your profile. Try again.');
+      addErrorToast('There was an error saving your profile. Try again.');
     }
 
     commit('SET_IS_SAVING', false);

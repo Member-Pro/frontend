@@ -54,48 +54,48 @@ const mutations = {
 };
 
 const actions = {
-  async loadMemberAchievements({ dispatch, commit }: CommitDispatchFunction, memberId: number): Promise<void> {
+  async loadMemberAchievements({ commit }: CommitDispatchFunction, memberId: number): Promise<void> {
     commit('SET_IS_LOADING', true);
 
     try {
       const achievements = await memberAchievementService.getByMemberId(memberId);
       commit('SET_MEMBER_ACHIEVEMENTS', achievements);
     } catch {
-      addErrorToast(dispatch, 'There was an error loading the member\'s achievements.');
+      addErrorToast('There was an error loading the member\'s achievements.');
     }
 
     commit('SET_IS_LOADING', false);
   },
 
-  async loadTrackedAchievements({ dispatch, commit }: CommitDispatchFunction): Promise<void> {
+  async loadTrackedAchievements({ commit }: CommitDispatchFunction): Promise<void> {
     commit('SET_IS_LOADING', true);
 
     try {
       const achievements = await trackedAchievementService.getForCurrentUser();
       commit('SET_TRACKED_ACHIEVEMENTS', achievements);
     } catch {
-      addErrorToast(dispatch, 'There was an error loading your tracked achievements.');
+      addErrorToast('There was an error loading your tracked achievements.');
     }
 
     commit('SET_IS_LOADING', false);
   },
 
-  async createTrackedAchievement({ commit, dispatch }: CommitDispatchFunction, data: CreateTrackedAchievement): Promise<void> {
+  async createTrackedAchievement({ commit }: CommitDispatchFunction, data: CreateTrackedAchievement): Promise<void> {
     commit('SET_IS_SAVING', true);
 
     try {
       const response = await trackedAchievementService.create(data);
       commit('ADD_TRACKED_ACHIEVEMENT', response);
 
-      addSuccessToast(dispatch, `You have started tracking ${response.achievement?.name}.`);
+      addSuccessToast(`You have started tracking ${response.achievement?.name}.`);
     } catch {
-      addErrorToast(dispatch, 'There was an error tracking the achievement. Try again.');
+      addErrorToast('There was an error tracking the achievement. Try again.');
     }
 
     commit('SET_IS_SAVING', false);
   },
 
-  async deleteTrackedAchievement({ state, commit, dispatch }: CommitDispatchStateFunction<MemberAchievementState>, achieveId: number): Promise<void> {
+  async deleteTrackedAchievement({ state, commit }: CommitDispatchStateFunction<MemberAchievementState>, achieveId: number): Promise<void> {
     commit('SET_IS_SAVING', true);
 
     try {
@@ -104,11 +104,11 @@ const actions = {
         await trackedAchievementService.delete(ta.id);
         commit('REMOVE_TRACKED_ACHIEVEMENT', ta.id);
 
-        addSuccessToast(dispatch, 'You have stopped tracking the achievement.');
+        addSuccessToast('You have stopped tracking the achievement.');
       }
     } catch {
       // TODO: Success is still showing even if there was an API error
-      addErrorToast(dispatch, 'There was an error removing the tracked achievement.');
+      addErrorToast('There was an error removing the tracked achievement.');
     }
 
     commit('SET_IS_SAVING', false);
