@@ -36,6 +36,7 @@ const routes: Array<RouteConfig> = [
     children: [
       { path: '', name: 'achievementList', component: () => import('@/views/achievements/AchievementList.vue') },
       { path: ':achievementId', name: 'achievementDetails', component: () => import('@/views/achievements/Details.vue'), props: true },
+      { path: ':achievementId/tracker/:requirementId?', name: 'achievementTracker', component: () => import('@/views/achievements/Tracker.vue'), props: true },
     ]
   },
 

@@ -29,8 +29,9 @@ instance.interceptors.response.use((response: AxiosResponse) => {
   // TODO: decrease API calls
 
   return response;
-}, _ => {
-  // TODO: decrease API calls
+}, error => {
+  console.log(error);
+  throw error;
 });
 
 const Api = {

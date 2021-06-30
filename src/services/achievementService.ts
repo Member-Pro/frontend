@@ -18,7 +18,7 @@ export default {
   },
 
   async getStepsForAchievement(achievementId: number): Promise<AchievementStep> {
-    const response = await api.get(`achievements/${achievementId}/steps`);
+    const response = await api.get(`achievements/${achievementId}/requirements`);
 
     const steps = response.data.map((x: any) => new AchievementStep(x));
     return steps;
