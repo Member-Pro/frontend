@@ -7,6 +7,12 @@
 
       <router-view />
     </div>
+
+    <footer class="site-footer mt-4 py-2 background-light">
+      <div class="container">
+        <p>&copy; 2017-2021 InternetMill LLC. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -34,3 +40,12 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style lang="scss">
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+
+footer.site-footer {
+  background-color: $gray-100;
+}
+</style>
