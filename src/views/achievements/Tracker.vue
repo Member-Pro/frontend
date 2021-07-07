@@ -26,7 +26,9 @@
 
           <div class="requirement-section my-2">
             <h3>Attachments</h3>
-            <p class="text-muted">Photos and other documentation to support your documentation.</p>
+            <p class="text-muted">Photos and other documentation to support your submission.</p>
+
+            <attachment-list :objectType="'requirement'" :objectId="requirementId" />
           </div>
         </div>
       </div>
@@ -39,10 +41,12 @@ import Vue from 'vue';
 import { mapActions, mapGetters } from 'vuex';
 import Activities from '@/components/achievementTracking/Activities.vue';
 import Tasks from '@/components/achievementTracking/Tasks.vue';
+import AttachmentList from '@/components/attachments/AttachmentList.vue';
 
 export default Vue.extend({
   components: {
     Activities,
+    AttachmentList,
     Tasks,
   },
   props: {
