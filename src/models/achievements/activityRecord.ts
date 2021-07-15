@@ -1,5 +1,5 @@
 import Achievement from './achievement';
-import AchievementStep from './achievementStep';
+import AchievementComponent from './achievementComponent';
 
 /** Represents an achievement activity record */
 export default class ActivityRecord {
@@ -8,8 +8,8 @@ export default class ActivityRecord {
   public achievementId = 0;
   public achievement: Achievement | null = null;
 
-  public requirementId = 0;
-  public requirement: AchievementStep | null = null;
+  public componentId = 0;
+  public component: AchievementComponent | null = null;
 
   public memberId = 0;
 
@@ -26,7 +26,7 @@ export default class ActivityRecord {
       Object.assign(this, data);
 
       this.achievement = new Achievement(data.achievement);
-      this.requirement = new AchievementStep(data.requirement);
+      this.component = new AchievementComponent(data.component);
     }
   }
 }

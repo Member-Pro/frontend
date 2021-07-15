@@ -25,7 +25,7 @@ const routes: Array<RouteConfig> = [
     children: [
       { path: '', name: 'profileDashboard', component: () => import('@/views/user/Profile.vue') },
       { path: 'edit', name: 'editProfile', component: () => import('@/views/user/UpdateProfile.vue') },
-    ]
+    ],
   },
 
   {
@@ -36,8 +36,13 @@ const routes: Array<RouteConfig> = [
     children: [
       { path: '', name: 'achievementList', component: () => import('@/views/achievements/AchievementList.vue') },
       { path: ':achievementId', name: 'achievementDetails', component: () => import('@/views/achievements/Details.vue'), props: true },
-      { path: ':achievementId/tracker/:requirementId?', name: 'achievementTracker', component: () => import('@/views/achievements/Tracker.vue'), props: true },
-    ]
+      {
+        path: ':achievementId/tracker/:componentId?',
+        name: 'achievementTracker',
+        component: () => import('@/views/achievements/Tracker.vue'),
+        props: route => ({ achievementId: parseInt(route.params.achievementId), componentId: parseInt(route.params.componentId) }),
+      },
+    ],
   },
 
   {
@@ -48,7 +53,7 @@ const routes: Array<RouteConfig> = [
     children: [
       { path: '', name: 'memberList', component: () => import('@/views/members/MemberList.vue') },
       { path: ':memberId', name: 'memberProfile', component: () => import('@/views/members/ViewProfile.vue'), props: true },
-    ]
+    ],
   },
 ];
 
@@ -56,7 +61,7 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
-  linkActiveClass: 'active'
+  linkActiveClass: 'active',
 });
 
 const onAuthRequired = async (from: Route, to: Route, next: any) => {

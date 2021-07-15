@@ -1,26 +1,27 @@
 import Achievement from '@/models/achievements/achievement';
-import AchievementStep from '@/models/achievements/achievementStep';
+import AchievementComponent from '@/models/achievements/achievementComponent';
+import achievementComponentService from '@/services/achievementComponentService';
 import AchievementService from '@/services/achievementService';
 
 interface AchievementState {
   isLoading: boolean;
   achievements: Achievement[];
   currentAchievement: Achievement | null;
-  currentAchievementSteps: AchievementStep[];
+  currentComponents: AchievementComponent[];
 }
 
 const state: AchievementState = {
   isLoading: false,
   achievements: [],
   currentAchievement: null,
-  currentAchievementSteps: [],
+  currentComponents: [],
 };
 
 const getters = {
   isLoading: (state: AchievementState): boolean => state.isLoading,
   achievements: (state: AchievementState): Achievement[] => state.achievements,
   currentAchievement: (state: AchievementState): Achievement | null => state.currentAchievement,
-  currentAchievementSteps: (state: AchievementState): AchievementStep[] => state.currentAchievementSteps,
+  currentComponents: (state: AchievementState): AchievementComponent[] => state.currentComponents,
 };
 
 const mutations = {
@@ -33,8 +34,8 @@ const mutations = {
   SET_CURRENT_ACHIEVEMENT(state: AchievementState, value: Achievement | null): void {
     state.currentAchievement = value;
   },
-  SET_CURRENT_ACHIEVEMENT_STEPS(state: AchievementState, value: AchievementStep[]): void {
-    state.currentAchievementSteps = value;
+  SET_CURRENT_COMPONENTS(state: AchievementState, value: AchievementComponent[]): void {
+    state.currentComponents = value;
   },
 };
 
@@ -59,8 +60,8 @@ const actions = {
       const achievement = await AchievementService.findById(id);
       commit('SET_CURRENT_ACHIEVEMENT', achievement);
 
-      const steps = await AchievementService.getStepsForAchievement(id);
-      commit('SET_CURRENT_ACHIEVEMENT_STEPS', steps);
+      const components = await achievementComponentService.getAllForAchievement(id);
+      commit('SET_CURRENT_COMPONENTS', components);
     } catch {
       // TODO: Show error
     }

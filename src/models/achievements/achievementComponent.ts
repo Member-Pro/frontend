@@ -1,20 +1,17 @@
-import Achievement from './achievement';
+import Requirement from './requirement';
 
-export default class AchievementStep {
+export default class AchievementComponent {
   public id = 0;
-
-  public achievement: Achievement | null = null;
 
   public name = '';
   public description = '';
-
-  public isRequired = false;
-  public minimumCount = 0;
 
   public isDisabled = false;
 
   public createdOn = '';
   public updatedOn = '';
+
+  public requirements: Requirement[] = [];
 
   constructor(data?: any) {
     if (data) {

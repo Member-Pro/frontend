@@ -62,10 +62,10 @@ const actions = {
     commit('SET_IS_LOADING', false);
   },
 
-  addRecord({ commit }: CommitFunction, { achievementId, requirementId } : { achievementId: number, requirementId: number }): void {
+  addRecord({ commit }: CommitFunction, { achievementId, componentId } : { achievementId: number, componentId: number }): void {
     const newRecord = new ActivityRecord();
     newRecord.achievementId = achievementId;
-    newRecord.requirementId = requirementId;
+    newRecord.componentId = componentId;
 
     commit('SET_EDITING_RECORD', newRecord);
     commit('SET_IS_EDITING', true);
