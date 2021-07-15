@@ -48,14 +48,14 @@
 import Vue from 'vue';
 import { mapActions, mapGetters } from 'vuex';
 import Activities from '@/components/achievementTracking/Activities.vue';
+import Tasks from '@/components/achievementTracking/Tasks.vue';
 import AttachmentList from '@/components/attachments/AttachmentList.vue';
-// import RequirementParts from '@/components/achievementTracking/RequirementParts.vue';
 
 export default Vue.extend({
   components: {
     Activities,
     AttachmentList,
-    // RequirementParts,
+    Tasks,
   },
   props: {
     achievementId: {
