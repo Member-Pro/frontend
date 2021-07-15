@@ -21,7 +21,6 @@
         </div>
         <div class="col-md-8">
           <div class="requirement-section my-2">
-            <!-- <requirement-parts v-if="currentRequirement" :requirement="currentRequirement" /> -->
           </div>
 
           <hr />
@@ -55,7 +54,6 @@ export default Vue.extend({
   components: {
     Activities,
     AttachmentList,
-    Tasks,
   },
   props: {
     achievementId: {
