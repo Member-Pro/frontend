@@ -6,7 +6,7 @@
           {{ param.name }}
         </dt>
         <dd class="col-md-9" :key="`${param.key}-value`">
-          {{ getParamValue(param.key)}}
+          {{ param.value }}
         </dd>
       </template>
     </dl>
@@ -15,34 +15,12 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapGetters } from 'vuex';
 
 export default Vue.extend({
   props: {
     requirement: {
       type: Object,
       required: true,
-    }
-  },
-  computed: {
-    ...mapGetters('achievements', [
-      'currentRequirements',
-      'requirementStates',
-    ]),
-    states() {
-      const states = this.requirementStates.filter(x => x.requirementId === this.requirement.id);
-      return states;
-    },
-  },
-  methods: {
-    getParamValue(paramKey: string) {
-      const reqState = this.requirementStates.find(x => x.requirementId === this.requirement.id);
-      if (reqState) {
-        const param = reqState.data[paramKey];
-        return param;
-      }
-
-      return null;
     },
   },
 });

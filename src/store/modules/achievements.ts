@@ -1,6 +1,8 @@
+import { getField, updateField } from 'vuex-map-fields';
+import { addErrorToast, addSuccessToast, CommitStateFunction } from '../common';
 import Achievement from '@/models/achievements/achievement';
 import AchievementComponent from '@/models/achievements/achievementComponent';
-import MemberRequirementState from '@/models/achievements/memberRequirementState';
+import MemberRequirementState, { UpdateMemberRequirementState } from '@/models/achievements/memberRequirementState';
 import Requirement from '@/models/achievements/requirement';
 import achievementComponentService from '@/services/achievementComponentService';
 import achievementRequirementService from '@/services/achievementRequirementService';
@@ -26,6 +28,8 @@ const state: AchievementState = {
 };
 
 const getters = {
+  getField,
+
   isLoading: (state: AchievementState): boolean => state.isLoading,
   achievements: (state: AchievementState): Achievement[] => state.achievements,
   currentAchievement: (state: AchievementState): Achievement | null => state.currentAchievement,
@@ -35,6 +39,8 @@ const getters = {
 };
 
 const mutations = {
+  updateField,
+
   SET_IS_LOADING(state: AchievementState, value: boolean): void {
     state.isLoading = value;
   },
@@ -89,6 +95,24 @@ const actions = {
     }
 
     commit('SET_IS_LOADING', false);
+  },
+
+  async updateRequirementState({ commit, state }: CommitStateFunction<AchievementState>, { requirementId }): Promise<void> {
+    try {
+      const model = new UpdateMemberRequirementState();
+      model.requirementId = requirementId;
+
+      const requirement = state.currentRequirements.find(x => x.id === requirementId);
+
+      // Map the values to a dictionary
+      model.data = Object.assign({}, ...requirement?.validationParameters.map((x) => ({ [x.key]: x.value })));
+
+      await memberRequirementService.updateRequirementState(model);
+
+      addSuccessToast('THe requirement data has been saved.');
+    } catch {
+      addErrorToast('There was an error saving the requirement data. Please try again.');
+    }
   },
 
 };

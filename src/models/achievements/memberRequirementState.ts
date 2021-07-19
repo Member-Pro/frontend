@@ -16,3 +16,10 @@ export default class MemberRequirementState {
     }
   }
 }
+
+export class UpdateMemberRequirementState {
+  public memberId = 0;
+  public requirementId = 0;
+
+  public data: any | null = null;
+}

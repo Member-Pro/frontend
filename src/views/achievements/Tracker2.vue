@@ -11,16 +11,51 @@
       <div class="row">
         <div class="col-md-8">
           <div class="component-list">
-            <div class="card mb-2 achievement-component" v-for="component in currentComponents" :key="component.id">
+            <div class="achievement-component mb-4" v-for="component in currentComponents" :key="component.id">
+              <h3>{{ component.name }}</h3>
+
+              <div class="requirement mb-4" v-for="requirement in currentRequirements.filter(x => x.componentId === component.id)" :key="requirement.id">
+                <div class="requirement-title d-flex justify-content-between">
+                    <h4>{{ requirement.name }}</h4>
+
+                    <b-button
+                      v-if="!isEditingRequirementParams(requirement.id)"
+                      variant="link"
+                      @click="showRequirementParamEditor(requirement.id)"
+                    >
+                      Edit
+                    </b-button>
+                  </div>
+
+                  <requirement-param-editor v-if="isEditingRequirementParams(requirement.id)" :requirement="requirement" @cancelEditingRequirementParam="cancelEditingRequirementParam" />
+                  <requirement-param-display v-else :requirement="requirement" />
+              </div>
+
+              <hr />
+            </div>
+
+            <!-- <div class="card mb-2 achievement-component" v-for="component in currentComponents" :key="component.id">
               <div class="card-header">{{ component.name }}</div>
               <div class="list-group list-group-flush">
                 <div class="list-group-item" v-for="requirement in getRequirementsForComponent(component.id)" :key="requirement.id">
-                  <b>{{ requirement.name }}</b>
+                  <div class="requirement-title d-flex justify-content-between">
+                    <b>{{ requirement.name }}</b>
 
-                  <requirement-param-display :requirement="requirement" />
+                    <b-button
+                      v-if="!isEditingRequirementParams(requirement.id)"
+                      variant="outline-secondary"
+                      size="sm"
+                      @click="showRequirementParamEditor(requirement.id)"
+                    >
+                      Edit
+                    </b-button>
+                  </div>
+
+                  <requirement-param-editor v-if="isEditingRequirementParams(requirement.id)" :requirement="requirement" />
+                  <requirement-param-display v-else :requirement="requirement" />
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
 
           <h3>Attachments</h3>
@@ -34,20 +69,22 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable vue/no-unused-components */
+
 import Vue from 'vue';
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
+import { mapFields, mapMultiRowFields } from 'vuex-map-fields';
 // import Activities from '@/components/achievementTracking/Activities.vue';
 import AttachmentList from '@/components/attachments/AttachmentList.vue';
 import Requirement from '@/models/achievements/requirement';
 import RequirementParamDisplay from '@/components/achievementTracking/RequirementParamDisplay.vue';
-// import RequirementParts from '@/components/achievementTracking/RequirementParts.vue';
+import RequirementParamEditor from '@/components/achievementTracking/RequirementParamEditor.vue';
 
 export default Vue.extend({
   components: {
-    // Activities,
     AttachmentList,
     RequirementParamDisplay,
-    // RequirementParts,
+    RequirementParamEditor,
   },
   props: {
     achievementId: {
@@ -60,24 +97,25 @@ export default Vue.extend({
     },
   },
   data(): any {
-    return { };
+    return {
+      editingRequirementId: 0,
+    };
   },
   computed: {
-    ...mapGetters('achievements', [
+    ...mapFields('achievements', [
       'currentAchievement',
       'currentComponents',
+    ]),
+    ...mapMultiRowFields('achievements', [
       'currentRequirements',
     ]),
-    currentComponent(): any {
-      return this.currentComponents.find(x => x.id === this.componentId);
-    },
+
   },
   watch: {
     achievementId: 'refresh',
   },
   async created() {
     await this.refresh();
-    console.log('componentId', this.componentId);
   },
   methods: {
     ...mapActions('achievements', [
@@ -90,6 +128,18 @@ export default Vue.extend({
 
     getRequirementsForComponent(componentId: number): Requirement[] {
       return this.currentRequirements.filter((x: Requirement) => x.componentId === componentId);
+    },
+
+    showRequirementParamEditor(requirementId: number) {
+      this.editingRequirementId = requirementId;
+    },
+
+    cancelEditingRequirementParam() {
+      this.editingRequirementId = null;
+    },
+
+    isEditingRequirementParams(requirementId: number): boolean {
+      return this.editingRequirementId === requirementId;
     },
   },
 });
