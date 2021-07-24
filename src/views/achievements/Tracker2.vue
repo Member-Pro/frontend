@@ -12,11 +12,13 @@
         <div class="col-md-8">
           <div class="component-list">
             <div class="card mb-2 achievement-component" v-for="component in currentComponents" :key="component.id">
-              <div class="card-header">{{ component.name }}</div>
+              <h5 class="card-header">{{ component.name }}</h5>
               <div class="list-group list-group-flush">
                 <div class="list-group-item" v-for="requirement in getRequirementsForComponent(component.id)" :key="requirement.id">
                   <div class="requirement-title d-flex justify-content-between">
-                    <b>{{ requirement.name }}</b>
+                    <h5>
+                      {{ requirement.name }} <b-icon-check-circle-fill v-if="false" class="text-success ml-2" title="Requirement complete" />
+                    </h5>
 
                     <b-button
                       v-if="!isEditingRequirementParams(requirement.id)"
@@ -27,6 +29,10 @@
                       Edit
                     </b-button>
                   </div>
+
+                  <p class="text-muted" v-if="requirement.description">
+                    {{ requirement.description }}
+                  </p>
 
                   <requirement-param-editor v-if="isEditingRequirementParams(requirement.id)" :requirement="requirement" @cancelEditingRequirementParam="cancelEditingRequirementParam" />
                   <requirement-param-display v-else :requirement="requirement" />
@@ -52,6 +58,7 @@ import Vue from 'vue';
 import { mapActions } from 'vuex';
 import { mapFields, mapMultiRowFields } from 'vuex-map-fields';
 // import Activities from '@/components/achievementTracking/Activities.vue';
+import { BIconCheckCircleFill } from 'bootstrap-vue';
 import AttachmentList from '@/components/attachments/AttachmentList.vue';
 import Requirement from '@/models/achievements/requirement';
 import RequirementParamDisplay from '@/components/achievementTracking/RequirementParamDisplay.vue';
@@ -60,6 +67,7 @@ import RequirementParamEditor from '@/components/achievementTracking/Requirement
 export default Vue.extend({
   components: {
     AttachmentList,
+    BIconCheckCircleFill,
     RequirementParamDisplay,
     RequirementParamEditor,
   },

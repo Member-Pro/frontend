@@ -7,6 +7,7 @@
           :fieldId="`req${requirement.id}-${param.key}`"
           :label="param.name"
           :labelSrOnly="false"
+          :placeholder="param.description"
           v-model="param.value"
         />
 
@@ -15,11 +16,20 @@
           :fieldId="`req${requirement.id}-${param.key}`"
           :label="param.name"
           :labelSrOnly="false"
+          :placeholder="param.description"
           v-model="param.value"
         />
 
         <checkbox
           v-if="param.inputType === 'Checkbox'"
+          :fieldId="`req${requirement.id}-${param.key}`"
+          :label="param.name"
+          :labelSrOnly="false"
+          v-model="param.value"
+        />
+
+        <date-picker
+          v-if="param.inputType === 'DatePicker'"
           :fieldId="`req${requirement.id}-${param.key}`"
           :label="param.name"
           :labelSrOnly="false"
@@ -37,6 +47,7 @@
 import Vue from 'vue';
 import { mapActions } from 'vuex';
 import Checkbox from '@/components/forms/Checkbox.vue';
+import DatePicker from '@/components/forms/DatePicker.vue';
 import TextArea from '@/components/forms/TextArea.vue';
 import TextBox from '@/components/forms/TextBox.vue';
 
@@ -53,6 +64,7 @@ export default Vue.extend({
   },
   components: {
     Checkbox,
+    DatePicker,
     TextArea,
     TextBox,
   },
@@ -63,6 +75,7 @@ export default Vue.extend({
 
     async save() {
       await this.updateRequirementState({ requirementId: this.requirement.id });
+      this.$emit('cancelEditingRequirementParam');
     },
     cancel() {
       this.$emit('cancelEditingRequirementParam');

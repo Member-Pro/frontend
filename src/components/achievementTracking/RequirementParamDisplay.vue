@@ -6,7 +6,10 @@
           {{ param.name }}
         </dt>
         <dd class="col-md-9" :key="`${param.key}-value`">
-          {{ param.value }}
+          <template v-if="param.value">
+            {{ param.value }}
+          </template>
+          <i class="text-muted" v-else>No value...</i>
         </dd>
       </template>
     </dl>

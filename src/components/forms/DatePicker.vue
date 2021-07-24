@@ -1,31 +1,21 @@
 <template>
-  <b-form-group>
-    <b-form-checkbox
+  <b-form-group :label-for="fieldId" :label="label" :label-sr-only="labelSrOnly" :class="groupCssClass">
+    <b-form-datepicker
       :id="fieldId"
       v-model="inputVal"
       @input="handleInput"
-    >
-      {{ label }}
-    </b-form-checkbox>
+      :class="inputCssClass"
+    />
   </b-form-group>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import { commonInputProps } from './common';
 
 export default Vue.extend({
   props: {
-    fieldId: {
-      type: String,
-      required: true,
-    },
-    label: {
-      type: String,
-      required: true,
-    },
-    value: {
-      // not sure if this should be required or have type validation...
-    },
+    ...commonInputProps,
   },
   data() {
     return {
