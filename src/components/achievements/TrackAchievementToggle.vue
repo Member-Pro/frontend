@@ -10,6 +10,14 @@
         <b-icon-bookmark-plus-fill /> Track Achievement
       </b-button>
     </template>
+    &nbsp;
+    <b-button
+      size="sm"
+      variant="outline-secondary"
+      :to="{name: 'achievementTracker', params: { achievementId: achievementId } }"
+    >
+      Progress Tracker
+    </b-button>
   </div>
 </template>
 

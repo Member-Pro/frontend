@@ -37,10 +37,10 @@ const routes: Array<RouteConfig> = [
       { path: '', name: 'achievementList', component: () => import('@/views/achievements/AchievementList.vue') },
       { path: ':achievementId', name: 'achievementDetails', component: () => import('@/views/achievements/Details.vue'), props: true },
       {
-        path: ':achievementId/tracker/:componentId?',
+        path: ':achievementId/tracker/',
         name: 'achievementTracker',
         component: () => import('@/views/achievements/Tracker2.vue'),
-        props: route => ({ achievementId: parseInt(route.params.achievementId), componentId: parseInt(route.params.componentId) }),
+        props: route => ({ achievementId: parseInt(route.params.achievementId) }),
       },
     ],
   },
