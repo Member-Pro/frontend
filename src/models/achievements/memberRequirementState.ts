@@ -1,4 +1,6 @@
 export default class MemberRequirementState {
+  public id = 0;
+
   public memberId = 0;
   public requirementId = 0;
 
@@ -6,13 +8,16 @@ export default class MemberRequirementState {
 
   public data: any | null = null;
 
+  public isValid = false;
+
   constructor(data?: any) {
     if (data) {
       Object.assign(this, data);
 
-      if (data.data) {
-        this.data = JSON.parse(data.data);
-      }
+      // if (input.data) {
+      //   console.log(this.data, input.data);
+      //   this.data = JSON.parse(input.data);
+      // }
     }
   }
 }

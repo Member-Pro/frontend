@@ -10,9 +10,11 @@ export default {
     return states;
   },
 
-  async updateRequirementState(model: UpdateMemberRequirementState): Promise<void> {
+  async updateRequirementState(model: UpdateMemberRequirementState): Promise<MemberRequirementState> {
     const url = `/requirements/${model.requirementId}/state`;
 
     const response = await api.put(url, model);
+    const data = new MemberRequirementState(response.data);
+    return data;
   },
-}
+};

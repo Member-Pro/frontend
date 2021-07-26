@@ -17,7 +17,8 @@
                 <div class="list-group-item" v-for="requirement in getRequirementsForComponent(component.id)" :key="requirement.id">
                   <div class="requirement-title d-flex justify-content-between">
                     <h5>
-                      {{ requirement.name }} <b-icon-check-circle-fill v-if="false" class="text-success ml-2" title="Requirement complete" />
+                      {{ requirement.name }}
+                      <requirement-valid-indicator :requirementId="requirement.id" />
                     </h5>
 
                     <b-button
@@ -58,18 +59,18 @@ import Vue from 'vue';
 import { mapActions } from 'vuex';
 import { mapFields, mapMultiRowFields } from 'vuex-map-fields';
 // import Activities from '@/components/achievementTracking/Activities.vue';
-import { BIconCheckCircleFill } from 'bootstrap-vue';
 import AttachmentList from '@/components/attachments/AttachmentList.vue';
 import Requirement from '@/models/achievements/requirement';
 import RequirementParamDisplay from '@/components/achievementTracking/RequirementParamDisplay.vue';
 import RequirementParamEditor from '@/components/achievementTracking/RequirementParamEditor.vue';
+import RequirementValidIndicator from '@/components/achievementTracking/RequirementValidIndicator.vue';
 
 export default Vue.extend({
   components: {
     AttachmentList,
-    BIconCheckCircleFill,
     RequirementParamDisplay,
     RequirementParamEditor,
+    RequirementValidIndicator,
   },
   props: {
     achievementId: {

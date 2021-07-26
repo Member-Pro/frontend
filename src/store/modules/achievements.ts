@@ -59,6 +59,10 @@ const mutations = {
   SET_CURRENT_REQUIREMENT_STATES(state: AchievementState, value: MemberRequirementState[]): void {
     state.requirementStates = value;
   },
+  UPDATE_CURRENT_REQUIREMENT_STATES(state: AchievementState, value: MemberRequirementState): void {
+    const states = state.requirementStates.filter(x => x.id !== value.id);
+    state.requirementStates = [ ...states, value ];
+  },
 };
 
 const actions = {
@@ -107,9 +111,10 @@ const actions = {
       // Map the values to a dictionary
       model.data = Object.assign({}, ...requirement?.validationParameters.map((x) => ({ [x.key]: x.value })));
 
-      await memberRequirementService.updateRequirementState(model);
+      const updatedRequirementState = await memberRequirementService.updateRequirementState(model);
+      commit('UPDATE_CURRENT_REQUIREMENT_STATES', updatedRequirementState);
 
-      addSuccessToast('THe requirement data has been saved.');
+      addSuccessToast('The requirement data has been saved.');
     } catch {
       addErrorToast('There was an error saving the requirement data. Please try again.');
     }
