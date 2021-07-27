@@ -56,7 +56,7 @@
           <attachment-list :objectType="'achievement'" :objectId="achievementId" />
         </div>
         <div class="col-md-4">
-          <div class="card jump-to" style="position: fixed">
+          <div class="card jump-to sticky-top">
             <div class="card-header">
               Jump to...
             </div>
