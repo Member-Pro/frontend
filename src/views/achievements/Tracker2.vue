@@ -14,6 +14,7 @@
             <div class="card mb-2 achievement-component" v-for="component in currentComponents" :key="component.id">
               <h5 class="card-header d-flex justify-content-between">
                 <span>
+                  <a :id="`component-${component.id}`"></a>
                   {{ component.name }}
                 </span>
 
@@ -49,9 +50,28 @@
           </div>
 
           <h3>Attachments</h3>
+          <a id="attachments"></a>
           <p class="text-muted">Photos and other documentation to support your submission.</p>
 
           <attachment-list :objectType="'achievement'" :objectId="achievementId" />
+        </div>
+        <div class="col-md-4">
+          <div class="card jump-to" style="position: fixed">
+            <div class="card-header">
+              Jump to...
+            </div>
+            <ul class="list-group list-group-flush">
+              <li
+                v-for="component in currentComponents"
+                :key="component.id"
+                class="list-group-item">
+                <a :href="`#component-${component.id}`">{{ component.name }}</a>
+              </li>
+              <li class="list-group-item">
+                <a href="#attachments">Attachments</a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </template>
