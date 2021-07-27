@@ -12,7 +12,13 @@
         <div class="col-md-8">
           <div class="component-list">
             <div class="card mb-2 achievement-component" v-for="component in currentComponents" :key="component.id">
-              <h5 class="card-header">{{ component.name }}</h5>
+              <h5 class="card-header d-flex justify-content-between">
+                <span>
+                  {{ component.name }}
+                </span>
+
+                <component-progress :componentId="component.id" />
+              </h5>
               <div class="list-group list-group-flush">
                 <div class="list-group-item" v-for="requirement in getRequirementsForComponent(component.id)" :key="requirement.id">
                   <div class="requirement-title d-flex justify-content-between">
@@ -60,6 +66,7 @@ import { mapActions } from 'vuex';
 import { mapFields, mapMultiRowFields } from 'vuex-map-fields';
 // import Activities from '@/components/achievementTracking/Activities.vue';
 import AttachmentList from '@/components/attachments/AttachmentList.vue';
+import ComponentProgress from '@/components/achievementTracking/ComponentProgress.vue';
 import Requirement from '@/models/achievements/requirement';
 import RequirementParamDisplay from '@/components/achievementTracking/RequirementParamDisplay.vue';
 import RequirementParamEditor from '@/components/achievementTracking/RequirementParamEditor.vue';
@@ -68,6 +75,7 @@ import RequirementValidIndicator from '@/components/achievementTracking/Requirem
 export default Vue.extend({
   components: {
     AttachmentList,
+    ComponentProgress,
     RequirementParamDisplay,
     RequirementParamEditor,
     RequirementValidIndicator,
@@ -87,6 +95,7 @@ export default Vue.extend({
     ...mapFields('achievements', [
       'currentAchievement',
       'currentComponents',
+      'requirementStates',
     ]),
     ...mapMultiRowFields('achievements', [
       'currentRequirements',
