@@ -1,8 +1,12 @@
 <template>
-  <small>
-    {{ `${validRequirementCount} / ${requirementCount }` }}
-    <!-- <progress-ring :radius="16" :progress="55" :stroke="2" /> -->
-  </small>
+  <div class="component-progress">
+    <small v-if="!allRequirementsAreValid">
+      {{ `${validRequirementCount} / ${requirementCount }` }}
+      <!-- <progress-ring :radius="16" :progress="55" :stroke="2" /> -->
+    </small>
+
+    <b-icon-check-circle-fill v-if="allRequirementsAreValid" class="text-success ml-2" title="Achievement component is complete" />
+  </div>
 </template>
 
 <script lang="ts">
@@ -43,6 +47,10 @@ export default Vue.extend({
       return this.requirementStates
         .filter(x => this.requirementIds.includes(x.requirementId) && x.isValid)
         .length;
+    },
+
+    allRequirementsAreValid(): boolean {
+      return this.validRequirementCount === this.requirementCount;
     },
   },
 });

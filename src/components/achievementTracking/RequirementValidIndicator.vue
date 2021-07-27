@@ -1,5 +1,5 @@
 <template>
-  <b-icon-check-circle-fill v-if="isValid" class="text-success ml-2" title="Requirement complete" />
+  <b-icon-check-circle-fill v-if="isValid" class="text-info ml-2" title="Requirement complete (all parts are 'valid')" />
 </template>
 
 <script lang="ts">
