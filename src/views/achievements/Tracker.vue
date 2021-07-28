@@ -1,7 +1,7 @@
 <template>
   <div class="achievement-tracker">
-    <template v-if="currentAchievement">
-      <h1>{{ currentAchievement.name }} Tracking</h1>
+    <template v-if="achievement">
+      <h1>{{ achievement.name }} Tracking</h1>
 
       <div class="row">
         <div class="col-md-4">
@@ -12,7 +12,7 @@
             <router-link
               :to="{ name: 'achievementTracker', params: { achievementId, componentId: component.id } }"
               class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" :class="{ active: componentId == component.id }"
-              v-for="component in currentComponents"
+              v-for="component in components"
               :key="component.id">
               {{ component.name }}
               <span class="badge badge-primary badge-pill">{{ component.requirements.length }}</span>
@@ -70,11 +70,11 @@ export default Vue.extend({
   },
   computed: {
     ...mapGetters('achievements', [
-      'currentAchievement',
-      'currentComponents',
+      'achievement',
+      'components',
     ]),
     currentComponent(): any {
-      return this.currentComponents.find(x => x.id === this.componentId);
+      return this.components.find(x => x.id === this.componentId);
     },
   },
   watch: {

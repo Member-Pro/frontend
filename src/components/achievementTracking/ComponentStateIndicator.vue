@@ -31,11 +31,11 @@ export default Vue.extend({
   },
   computed: {
     ...mapGetters('achievements', [
-      'currentRequirements',
+      'requirements',
       'requirementStates',
     ]),
     requirementIds(): number[] {
-      const test = this.currentRequirements.filter(x => x.componentId === this.componentId).map(x => x.id);
+      const test = this.requirements.filter(x => x.componentId === this.componentId).map(x => x.id);
       return test;
     },
 

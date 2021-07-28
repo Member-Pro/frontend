@@ -8,24 +8,24 @@
         <b-skeleton width="70%"></b-skeleton>
       </template>
 
-      <template v-if="currentAchievement">
+      <template v-if="achievement">
         <div class="d-flex justify-content-between align-items-baseline">
           <h1>
-            {{ currentAchievement.name }}
+            {{ achievement.name }}
           </h1>
 
-          <track-achievement-toggle :achievementId="currentAchievement.id" />
+          <track-achievement-toggle :achievementId="achievement.id" />
         </div>
 
         <div class="description my-2">
-          {{ currentAchievement.description }}
+          {{ achievement.description }}
         </div>
 
         <div class="requirements my-2">
           <h3>Steps/Requirements</h3>
 
           <ol class="requirement-list">
-            <li v-for="step in currentAchievementSteps" :key="step.id">
+            <li v-for="step in achievementSteps" :key="step.id">
               {{ step.name }}
             </li>
           </ol>
@@ -50,8 +50,8 @@ export default Vue.extend({
   computed: {
     ...mapGetters('achievements', [
       'isLoading',
-      'currentAchievement',
-      'currentAchievementSteps',
+      'achievement',
+      'achievementSteps',
     ]),
   },
   async created() {

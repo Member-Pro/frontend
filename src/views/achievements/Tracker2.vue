@@ -1,17 +1,17 @@
 <template>
   <div class="achievement-tracker">
-    <template v-if="currentAchievement">
+    <template v-if="achievement">
       <h1 class="mb-4">
         Achievement Tracker
         <small>
-          {{ currentAchievement.name }}
+          {{ achievement.name }}
         </small>
       </h1>
 
       <div class="row">
         <div class="col-md-8">
           <div class="component-list">
-            <div class="card mb-2 achievement-component" v-for="component in currentComponents" :key="component.id">
+            <div class="card mb-2 achievement-component" v-for="component in components" :key="component.id">
               <h5 class="card-header d-flex justify-content-between">
                 <span>
                   <a :id="`component-${component.id}`"></a>
@@ -41,7 +41,7 @@
             </div>
             <ul class="list-group list-group-flush">
               <li
-                v-for="component in currentComponents"
+                v-for="component in components"
                 :key="component.id"
                 class="list-group-item">
                 <a :href="`#component-${component.id}`">{{ component.name }}</a>
@@ -87,12 +87,12 @@ export default Vue.extend({
   },
   computed: {
     ...mapFields('achievements', [
-      'currentAchievement',
-      'currentComponents',
+      'achievement',
+      'components',
       'requirementStates',
     ]),
     ...mapMultiRowFields('achievements', [
-      'currentRequirements',
+      'requirements',
     ]),
 
   },
@@ -112,7 +112,7 @@ export default Vue.extend({
     },
 
     getRequirementsForComponent(componentId: number): Requirement[] {
-      return this.currentRequirements.filter((x: Requirement) => x.componentId === componentId);
+      return this.requirements.filter((x: Requirement) => x.componentId === componentId);
     },
   },
 });

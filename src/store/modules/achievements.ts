@@ -12,18 +12,18 @@ import memberRequirementService from '@/services/memberRequirementService';
 interface AchievementState {
   isLoading: boolean;
   achievements: Achievement[];
-  currentAchievement: Achievement | null;
-  currentComponents: AchievementComponent[];
-  currentRequirements: Requirement[];
+  achievement: Achievement | null;
+  components: AchievementComponent[];
+  requirements: Requirement[];
   requirementStates: MemberRequirementState[];
 }
 
 const state: AchievementState = {
   isLoading: false,
   achievements: [],
-  currentAchievement: null,
-  currentComponents: [],
-  currentRequirements: [],
+  achievement: null,
+  components: [],
+  requirements: [],
   requirementStates: [],
 };
 
@@ -32,9 +32,9 @@ const getters = {
 
   isLoading: (state: AchievementState): boolean => state.isLoading,
   achievements: (state: AchievementState): Achievement[] => state.achievements,
-  currentAchievement: (state: AchievementState): Achievement | null => state.currentAchievement,
-  currentComponents: (state: AchievementState): AchievementComponent[] => state.currentComponents,
-  currentRequirements: (state: AchievementState): Requirement[] => state.currentRequirements,
+  achievement: (state: AchievementState): Achievement | null => state.achievement,
+  components: (state: AchievementState): AchievementComponent[] => state.components,
+  requirements: (state: AchievementState): Requirement[] => state.requirements,
   requirementStates: (state: AchievementState): MemberRequirementState[] => state.requirementStates,
 };
 
@@ -47,19 +47,19 @@ const mutations = {
   SET_ACHIEVEMENTS(state: AchievementState, value: Achievement[]): void {
     state.achievements = value;
   },
-  SET_CURRENT_ACHIEVEMENT(state: AchievementState, value: Achievement | null): void {
-    state.currentAchievement = value;
+  SET_ACHIEVEMENT(state: AchievementState, value: Achievement | null): void {
+    state.achievement = value;
   },
-  SET_CURRENT_COMPONENTS(state: AchievementState, value: AchievementComponent[]): void {
-    state.currentComponents = value;
+  SET_COMPONENTS(state: AchievementState, value: AchievementComponent[]): void {
+    state.components = value;
   },
-  SET_CURRENT_REQUIREMENTS(state: AchievementState, value: Requirement[]): void {
-    state.currentRequirements = value;
+  SET_REQUIREMENTS(state: AchievementState, value: Requirement[]): void {
+    state.requirements = value;
   },
-  SET_CURRENT_REQUIREMENT_STATES(state: AchievementState, value: MemberRequirementState[]): void {
+  SET_REQUIREMENT_STATES(state: AchievementState, value: MemberRequirementState[]): void {
     state.requirementStates = value;
   },
-  UPDATE_CURRENT_REQUIREMENT_STATES(state: AchievementState, value: MemberRequirementState): void {
+  UPDATE_REQUIREMENT_STATES(state: AchievementState, value: MemberRequirementState): void {
     const states = state.requirementStates.filter(x => x.id !== value.id);
     state.requirementStates = [ ...states, value ];
   },
@@ -84,16 +84,16 @@ const actions = {
 
     try {
       const achievement = await AchievementService.findById(id);
-      commit('SET_CURRENT_ACHIEVEMENT', achievement);
+      commit('SET_ACHIEVEMENT', achievement);
 
       const components = await achievementComponentService.getAllForAchievement(id);
-      commit('SET_CURRENT_COMPONENTS', components);
+      commit('SET_COMPONENTS', components);
 
       const requirements = await achievementRequirementService.getAllForAchievement(id);
-      commit('SET_CURRENT_REQUIREMENTS', requirements);
+      commit('SET_REQUIREMENTS', requirements);
 
       const requirementStates = await memberRequirementService.getUserRequirementStatesForAchievement(id);
-      commit('SET_CURRENT_REQUIREMENT_STATES', requirementStates);
+      commit('SET_REQUIREMENT_STATES', requirementStates);
     } catch {
       // TODO: Show error
     }
@@ -106,13 +106,13 @@ const actions = {
       const model = new UpdateMemberRequirementState();
       model.requirementId = requirementId;
 
-      const requirement = state.currentRequirements.find(x => x.id === requirementId);
+      const requirement = state.requirements.find(x => x.id === requirementId);
 
       // Map the values to a dictionary
       model.data = Object.assign({}, ...requirement?.validationParameters.map((x) => ({ [x.key]: x.value })));
 
       const updatedRequirementState = await memberRequirementService.updateRequirementState(model);
-      commit('UPDATE_CURRENT_REQUIREMENT_STATES', updatedRequirementState);
+      commit('UPDATE_REQUIREMENT_STATES', updatedRequirementState);
 
       addSuccessToast('The requirement data has been saved.');
     } catch {
