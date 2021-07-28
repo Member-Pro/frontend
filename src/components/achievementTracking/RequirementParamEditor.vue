@@ -75,10 +75,10 @@ export default Vue.extend({
 
     async save() {
       await this.updateRequirementState({ requirementId: this.requirement.id });
-      this.$emit('cancelEditingRequirementParam');
+      this.$emit('closeEditor');
     },
     cancel() {
-      this.$emit('cancelEditingRequirementParam');
+      this.$emit('closeEditor');
     },
   },
 });

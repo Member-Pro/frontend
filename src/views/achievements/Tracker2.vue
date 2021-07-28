@@ -18,32 +18,11 @@
                   {{ component.name }}
                 </span>
 
-                <component-progress :componentId="component.id" />
+                <component-state-indicator :componentId="component.id" />
               </h5>
               <div class="list-group list-group-flush">
                 <div class="list-group-item" v-for="requirement in getRequirementsForComponent(component.id)" :key="requirement.id">
-                  <div class="requirement-title d-flex justify-content-between">
-                    <h5>
-                      {{ requirement.name }}
-                      <requirement-valid-indicator :requirementId="requirement.id" />
-                    </h5>
-
-                    <b-button
-                      v-if="!isEditingRequirementParams(requirement.id)"
-                      variant="outline-secondary"
-                      size="sm"
-                      @click="showRequirementParamEditor(requirement.id)"
-                    >
-                      Edit
-                    </b-button>
-                  </div>
-
-                  <p class="text-muted" v-if="requirement.description">
-                    {{ requirement.description }}
-                  </p>
-
-                  <requirement-param-editor v-if="isEditingRequirementParams(requirement.id)" :requirement="requirement" @cancelEditingRequirementParam="cancelEditingRequirementParam" />
-                  <requirement-param-display v-else :requirement="requirement" />
+                  <requirement-view :requirement="requirement" />
                 </div>
               </div>
             </div>
@@ -79,26 +58,21 @@
 </template>
 
 <script lang="ts">
-/* eslint-disable vue/no-unused-components */
 
 import Vue from 'vue';
 import { mapActions } from 'vuex';
 import { mapFields, mapMultiRowFields } from 'vuex-map-fields';
 // import Activities from '@/components/achievementTracking/Activities.vue';
 import AttachmentList from '@/components/attachments/AttachmentList.vue';
-import ComponentProgress from '@/components/achievementTracking/ComponentProgress.vue';
+import ComponentStateIndicator from '@/components/achievementTracking/ComponentStateIndicator.vue';
 import Requirement from '@/models/achievements/requirement';
-import RequirementParamDisplay from '@/components/achievementTracking/RequirementParamDisplay.vue';
-import RequirementParamEditor from '@/components/achievementTracking/RequirementParamEditor.vue';
-import RequirementValidIndicator from '@/components/achievementTracking/RequirementValidIndicator.vue';
+import RequirementView from '@/components/achievementTracking/Requirement.vue';
 
 export default Vue.extend({
   components: {
     AttachmentList,
-    ComponentProgress,
-    RequirementParamDisplay,
-    RequirementParamEditor,
-    RequirementValidIndicator,
+    ComponentStateIndicator,
+    RequirementView,
   },
   props: {
     achievementId: {
@@ -139,18 +113,6 @@ export default Vue.extend({
 
     getRequirementsForComponent(componentId: number): Requirement[] {
       return this.currentRequirements.filter((x: Requirement) => x.componentId === componentId);
-    },
-
-    showRequirementParamEditor(requirementId: number) {
-      this.editingRequirementId = requirementId;
-    },
-
-    cancelEditingRequirementParam() {
-      this.editingRequirementId = null;
-    },
-
-    isEditingRequirementParams(requirementId: number): boolean {
-      return this.editingRequirementId === requirementId;
     },
   },
 });
