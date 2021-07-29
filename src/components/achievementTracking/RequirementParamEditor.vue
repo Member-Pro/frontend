@@ -35,6 +35,16 @@
           :labelSrOnly="false"
           v-model="param.value"
         />
+
+        <drop-down-list
+          v-if="param.inputType === 'DropDownList'"
+          :fieldId="`req${requirement.id}-${param.key}`"
+          :label="param.name"
+          :labelSrOnly="false"
+          v-model="param.value"
+          :options="param.options.map(x => ({ value: x, text: x }))"
+          :defaultOption="{ text: '', value: '' }"
+        />
       </div>
 
       <b-button type="submit" variant="primary">Save</b-button>&nbsp;
@@ -48,6 +58,7 @@ import Vue from 'vue';
 import { mapActions } from 'vuex';
 import Checkbox from '@/components/forms/Checkbox.vue';
 import DatePicker from '@/components/forms/DatePicker.vue';
+import DropDownList from '@/components/forms/DropDownList.vue';
 import TextArea from '@/components/forms/TextArea.vue';
 import TextBox from '@/components/forms/TextBox.vue';
 
@@ -65,6 +76,7 @@ export default Vue.extend({
   components: {
     Checkbox,
     DatePicker,
+    DropDownList,
     TextArea,
     TextBox,
   },
