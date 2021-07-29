@@ -14,7 +14,7 @@
             {{ achievement.name }}
           </h1>
 
-          <track-achievement-toggle :achievementId="achievement.id" />
+          <favorite-achievement-toggle :achievementId="achievement.id" />
         </div>
 
         <div class="description my-2">
@@ -38,10 +38,10 @@
 <script lang="ts">
 import { mapActions, mapGetters } from 'vuex';
 import Vue from 'vue';
-import TrackAchievementToggle from '@/components/achievements/TrackAchievementToggle.vue';
+import FavoriteAchievementToggle from '@/components/achievements/FavoriteAchievementToggle.vue';
 
 export default Vue.extend({
-  components: { TrackAchievementToggle },
+  components: { FavoriteAchievementToggle },
   props: {
     achievementId: {
       required: true,
@@ -56,7 +56,7 @@ export default Vue.extend({
   },
   async created() {
     await this.refreshView();
-    await this.loadTrackedAchievements();
+    await this.loadFavoriteAchievements();
   },
   watch: {
     achievementId: 'refreshView',
@@ -66,7 +66,7 @@ export default Vue.extend({
       'loadAchievement',
     ]),
     ...mapActions('memberAchievements', [
-      'loadTrackedAchievements',
+      'loadFavoriteAchievements',
     ]),
 
     async refreshView() {

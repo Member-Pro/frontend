@@ -1,6 +1,6 @@
 import Achievement from '../achievements/achievement';
 
-export default class TrackedAchievement {
+export default class FavoriteAchievement {
   public id = 0;
 
   public memberId = 0;
@@ -18,7 +18,7 @@ export default class TrackedAchievement {
   }
 }
 
-export class CreateTrackedAchievement {
+export class CreateFavoriteAchievement {
   public memberId = 0;
   public achievementId = 0;
   public notes: string | null = null;

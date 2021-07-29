@@ -16,7 +16,7 @@
         <b-form-group label-for="viewType" label="Display Achievements" label-sr-only class="my-0">
           <b-select id="viewType" v-model="viewType">
             <b-select-option value="all">All Achievements</b-select-option>
-            <b-select-option value="tracking">Tracking Achievements</b-select-option>
+            <b-select-option value="favorite">Favorite Achievements</b-select-option>
           </b-select>
         </b-form-group>
       </div>
@@ -61,14 +61,14 @@ export default Vue.extend({
       'achievements',
     ]),
     ...mapGetters('memberAchievements', [
-      'trackedAchievementIds',
+      'favoriteAchievementIds',
     ]),
     displayAchievements: function(): Achievement[] {
       if (this.viewType === 'all') {
         return this.achievements;
       }
 
-      return this.achievements.filter((x: Achievement) => this.trackedAchievementIds.includes(x.id));
+      return this.achievements.filter((x: Achievement) => this.favoriteAchievementIds.includes(x.id));
     },
   },
   watch: {
@@ -78,14 +78,14 @@ export default Vue.extend({
     this.viewType = this.$route.query.viewType ?? 'all';
 
     await this.loadAchievements();
-    await this.loadTrackedAchievements();
+    await this.loadFavoriteAchievements();
   },
   methods: {
     ...mapActions('achievements', [
       'loadAchievements',
     ]),
     ...mapActions('memberAchievements', [
-      'loadTrackedAchievements',
+      'loadFavoriteAchievements',
     ]),
     updateParams() {
       if (this.$route.query.viewType !== this.viewType) {

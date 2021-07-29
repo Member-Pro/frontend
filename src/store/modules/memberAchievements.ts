@@ -1,30 +1,30 @@
 import MemberAchievement from '@/models/members/memberAchievement';
-import TrackedAchievement, { CreateTrackedAchievement } from '@/models/members/trackedAchievement';
+import FavoriteAchievement, { CreateFavoriteAchievement } from '@/models/members/favoriteAchievement';
 import memberAchievementService from '@/services/memberAchievementService';
-import trackedAchievementService from '@/services/trackedAchievementService';
+import favoriteAchievementService from '@/services/favoriteAchievementService';
 import { addErrorToast, addSuccessToast, CommitDispatchFunction, CommitDispatchStateFunction } from '../common';
 
 interface MemberAchievementState {
   isLoading: boolean;
   isSaving: boolean;
   memberAchievements: MemberAchievement[];
-  trackedAchievements: TrackedAchievement[];
+  favoriteAchievements: FavoriteAchievement[];
 }
 
 const state: MemberAchievementState = {
   isLoading: false,
   isSaving: false,
   memberAchievements: [],
-  trackedAchievements: [],
+  favoriteAchievements: [],
 };
 
 const getters = {
   isLoading: (state: MemberAchievementState): boolean => state.isLoading,
   isSaving: (state: MemberAchievementState): boolean => state.isSaving,
   memberAchievements: (state: MemberAchievementState): MemberAchievement[] => state.memberAchievements,
-  trackedAchievements: (state: MemberAchievementState): TrackedAchievement[] => state.trackedAchievements,
-  trackedAchievementIds: (state: MemberAchievementState): number[] =>
-    state.trackedAchievements.map((a: TrackedAchievement) => a.achievementId),
+  favoriteAchievements: (state: MemberAchievementState): FavoriteAchievement[] => state.favoriteAchievements,
+  favoriteAchievementIds: (state: MemberAchievementState): number[] =>
+    state.favoriteAchievements.map((a: FavoriteAchievement) => a.achievementId),
 };
 
 const mutations = {
@@ -40,16 +40,16 @@ const mutations = {
     state.memberAchievements = value;
   },
 
-  SET_TRACKED_ACHIEVEMENTS(state: MemberAchievementState, value: TrackedAchievement[]): void {
-    state.trackedAchievements = value;
+  SET_TRACKED_ACHIEVEMENTS(state: MemberAchievementState, value: FavoriteAchievement[]): void {
+    state.favoriteAchievements = value;
   },
 
-  ADD_TRACKED_ACHIEVEMENT(state: MemberAchievementState, value: TrackedAchievement): void {
-    state.trackedAchievements = [ ...state.trackedAchievements, value ];
+  ADD_TRACKED_ACHIEVEMENT(state: MemberAchievementState, value: FavoriteAchievement): void {
+    state.favoriteAchievements = [ ...state.favoriteAchievements, value ];
   },
 
   REMOVE_TRACKED_ACHIEVEMENT(state: MemberAchievementState, trackedId: number): void {
-    state.trackedAchievements = state.trackedAchievements.filter((ta: TrackedAchievement) => ta.id !== trackedId);
+    state.favoriteAchievements = state.favoriteAchievements.filter((ta: FavoriteAchievement) => ta.id !== trackedId);
   },
 };
 
@@ -67,11 +67,11 @@ const actions = {
     commit('SET_IS_LOADING', false);
   },
 
-  async loadTrackedAchievements({ commit }: CommitDispatchFunction): Promise<void> {
+  async loadFavoriteAchievements({ commit }: CommitDispatchFunction): Promise<void> {
     commit('SET_IS_LOADING', true);
 
     try {
-      const achievements = await trackedAchievementService.getForCurrentUser();
+      const achievements = await favoriteAchievementService.getForCurrentUser();
       commit('SET_TRACKED_ACHIEVEMENTS', achievements);
     } catch {
       addErrorToast('There was an error loading your tracked achievements.');
@@ -80,35 +80,35 @@ const actions = {
     commit('SET_IS_LOADING', false);
   },
 
-  async createTrackedAchievement({ commit }: CommitDispatchFunction, data: CreateTrackedAchievement): Promise<void> {
+  async createFavoriteAchievement({ commit }: CommitDispatchFunction, data: CreateFavoriteAchievement): Promise<void> {
     commit('SET_IS_SAVING', true);
 
     try {
-      const response = await trackedAchievementService.create(data);
+      const response = await favoriteAchievementService.create(data);
       commit('ADD_TRACKED_ACHIEVEMENT', response);
 
-      addSuccessToast(`You have started tracking ${response.achievement?.name}.`);
+      addSuccessToast(`You have favorited ${response.achievement?.name}.`);
     } catch {
-      addErrorToast('There was an error tracking the achievement. Try again.');
+      addErrorToast('There was an error favoriting the achievement. Try again.');
     }
 
     commit('SET_IS_SAVING', false);
   },
 
-  async deleteTrackedAchievement({ state, commit }: CommitDispatchStateFunction<MemberAchievementState>, achieveId: number): Promise<void> {
+  async deleteFavoriteAchievement({ state, commit }: CommitDispatchStateFunction<MemberAchievementState>, achieveId: number): Promise<void> {
     commit('SET_IS_SAVING', true);
 
     try {
-      const ta = state.trackedAchievements.find((x: TrackedAchievement) => x.achievementId === achieveId);
+      const ta = state.favoriteAchievements.find((x: FavoriteAchievement) => x.achievementId === achieveId);
       if (ta) {
-        await trackedAchievementService.delete(ta.id);
+        await favoriteAchievementService.delete(ta.id);
         commit('REMOVE_TRACKED_ACHIEVEMENT', ta.id);
 
-        addSuccessToast('You have stopped tracking the achievement.');
+        addSuccessToast('You have removed the favorite achievement.');
       }
     } catch {
       // TODO: Success is still showing even if there was an API error
-      addErrorToast('There was an error removing the tracked achievement.');
+      addErrorToast('There was an error removing the favorite achievement.');
     }
 
     commit('SET_IS_SAVING', false);

@@ -14,17 +14,17 @@
         {{ achievement.description }}
       </p>
 
-      <track-achievement-toggle :achievementId="achievement.id" v-if="showTrackButton" />
+      <favorite-achievement-toggle :achievementId="achievement.id" v-if="showFavoriteButton" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import TrackAchievementToggle from './TrackAchievementToggle.vue';
+import FavoriteAchievementToggle from './FavoriteAchievementToggle.vue';
 
 export default Vue.extend({
-  components: { TrackAchievementToggle },
+  components: { FavoriteAchievementToggle },
   props: {
     achievement: {
       type: Object,
@@ -34,7 +34,7 @@ export default Vue.extend({
       type: Boolean,
       default: true,
     },
-    showTrackButton: {
+    showFavoriteButton: {
       type: Boolean,
       default: true,
     },
