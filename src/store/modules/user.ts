@@ -51,12 +51,21 @@ const actions = {
     commit('SET_IS_LOADING', false);
   },
 
-  async update({ commit, state }: CommitDispatchStateFunction<UserState>): Promise<void> {
+  async update({ commit, dispatch, state }: CommitDispatchStateFunction<UserState>): Promise<void> {
     commit('SET_IS_SAVING', true);
 
     try {
       if (state.currentUser) {
         await UserService.update(state.currentUser);
+
+        // Update the attributes in cogntio
+        const userUpdateParams = {
+          email: state.currentUser.emailAddress,
+          firstName: state.currentUser.firstName,
+          lastName: state.currentUser.lastName,
+        };
+
+        await dispatch('auth/updateUser', userUpdateParams, { root: true });
 
         addSuccessToast('Your profile has been updated.');
       }
