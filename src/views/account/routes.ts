@@ -1,11 +1,12 @@
 import { RouteConfig } from 'vue-router';
 
 import Login from './SignIn.vue';
-import Join from './Join.vue';
+import Signup from './Signup.vue';
 
 const routes: Array<RouteConfig> = [
   { name: 'login', path: '/login', component: Login },
-  { name: 'join', path: '/join', component: Join },
+  { name: 'signup', path: '/signup', component: Signup },
+  { name: 'register', path: '/register', redirect: '/signup' },
 ];
 
 export default routes;
