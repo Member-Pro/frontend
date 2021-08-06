@@ -7,6 +7,10 @@
 
           <auth-alerts />
 
+          <b-alert :show="isSignup" variant="success">
+            Thanks for joining! You may now sign into your account.
+          </b-alert>
+
           <b-form @submit.prevent="signIn">
             <b-form-group label="Email address" label-for="emailInput" label-sr-only>
               <b-form-input
@@ -58,6 +62,7 @@ export default {
   },
   data() {
     return {
+      isSignup: false,
       email: '',
       pass: '',
     };
@@ -65,7 +70,17 @@ export default {
   computed: {
     ...mapGetters('auth', [ 'hasAuthenticationStatus', 'authenticationStatus', 'isAuthenticated' ]),
   },
+  created() {
+    this.load();
+  },
+  watch: {
+    $route: 'load',
+  },
   methods: {
+    load() {
+      this.isSignup = this.$route.query.signupComplete === 'true';
+      console.log('is signup', this.isSignup);
+    },
     async signIn() {
       await store.dispatch('auth/signIn', {
         username: this.email,

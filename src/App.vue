@@ -44,6 +44,7 @@ export default Vue.extend({
 <style lang="scss">
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';
+@import './assets/app.scss';
 
 footer.site-footer {
   background-color: $gray-100;

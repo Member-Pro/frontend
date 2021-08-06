@@ -67,3 +67,9 @@ export class RegisterMember {
   public countryId = 0;
   public stateProvinceId = 0;
 }
+
+export class VerifyEmail {
+  public emailAddress = '';
+
+  public code = '';
+}

@@ -256,7 +256,7 @@ export default Vue.extend({
         try {
           await this.register();
 
-          this.$router.push({ name: 'login' });
+          this.$router.push({ name: 'verifyEmail' });
         } catch (_) {
           // Don't redirect; show error message
         }
