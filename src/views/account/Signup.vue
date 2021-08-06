@@ -15,8 +15,8 @@
           <p>It looks like some things aren't quite right. Check the issues below and try again.</p>
         </div>
 
-        <b-alert :show="hasRegistrationError" variant="danger">
-          {{ registrationError }}
+        <b-alert :show="hasError" variant="danger">
+          {{ error }}
         </b-alert>
 
         <b-form @submit.prevent="submit" novalidate>
@@ -173,18 +173,18 @@ export default Vue.extend({
     //   'hasAlert',
     //   'alert',
     // ]),
-    ...mapFields('user', [
-      'register.emailAddress',
-      'register.password',
-      'register.confirmPassword',
-      'register.firstName',
-      'register.lastName',
-      'register.countryId',
-      'register.stateProvinceId',
+    ...mapFields('signup', [
+      'user.emailAddress',
+      'user.password',
+      'user.confirmPassword',
+      'user.firstName',
+      'user.lastName',
+      'user.countryId',
+      'user.stateProvinceId',
     ]),
-    ...mapGetters('user', [
-      'registrationError',
-      'hasRegistrationError',
+    ...mapGetters('signup', [
+      'error',
+      'hasError',
     ]),
     ...mapGetters('geography', [
       'countries',
@@ -238,7 +238,7 @@ export default Vue.extend({
     countryId: 'refreshStateProvinces',
   },
   methods: {
-    ...mapActions('user', [
+    ...mapActions('signup', [
       'register',
     ]),
     ...mapActions('geography', [

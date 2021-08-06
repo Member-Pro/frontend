@@ -7,6 +7,7 @@ import Auth from './modules/auth';
 import geography from './modules/geography';
 import members from './modules/members';
 import memberAchievements from './modules/memberAchievements';
+import signup from './modules/signup';
 import user from './modules/user';
 import { createToastModule } from './modules/toast';
 
@@ -44,6 +45,7 @@ export default new Vuex.Store({
     members,
     memberAchievements,
     toast: createToastModule(),
+    signup,
     user,
   },
   plugins: [
