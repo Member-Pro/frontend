@@ -55,3 +55,21 @@ export class SimpleMember {
     }
   }
 }
+
+export class RegisterMember {
+  public emailAddress = '';
+  public password = '';
+  public confirmPassword = '';
+
+  public firstName = '';
+  public lastName = '';
+
+  public countryId = 0;
+  public stateProvinceId = 0;
+}
+
+export class VerifyEmail {
+  public emailAddress = '';
+
+  public code = '';
+}

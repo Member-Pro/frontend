@@ -7,6 +7,7 @@ interface UserState {
   isLoading: boolean;
   isSaving: boolean;
   currentUser: Member | null;
+
 }
 
 const state: UserState = {
