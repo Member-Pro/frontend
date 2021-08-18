@@ -47,6 +47,16 @@ const routes: Array<RouteConfig> = [
   },
 
   {
+    path: '/attachments',
+    name: 'attachments',
+    component: GenericRouterView,
+    meta: { requiresAuth: true },
+    children: [
+      { path: '', name: 'attachmentList', component: () => import('@/views/attachments/Attachments.vue') },
+    ],
+  },
+
+  {
     path: '/members',
     name: 'members',
     component: GenericRouterView,

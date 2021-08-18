@@ -46,6 +46,19 @@ const mutations = {
 };
 
 const actions = {
+  async loadAll({ commit }: { commit: any }): Promise<void> {
+    commit('SET_IS_LOADING', true);
+
+    try {
+      const attachments = await attachmentService.getAll();
+      commit('SET_ATTACHMENTS', attachments);
+    } catch {
+      addErrorToast('There was an error loading the attachments.');
+    }
+
+    commit('SET_IS_LOADING', false);
+  },
+
   async searchAttachments({ commit }: { commit: any }, { objectType, objectId }): Promise<void> {
     commit('SET_IS_LOADING', true);
 
@@ -63,12 +76,19 @@ const actions = {
     try {
       commit('SET_IS_UPLOADING', true);
 
-      const newAttachment = await attachmentService.upload(state.upload);
+      // For now, not requiring that uploads are tied to a specific object (requirement, etc);
+      const upload: UploadAttachment = { ...state.upload };
+      upload.objectType = 'user';
+      upload.objectId = 0;
+
+      const newAttachment = await attachmentService.upload(upload);
       commit('ADD_ATTACHMENT', newAttachment);
       commit('RESET_UPLOAD');
 
       addSuccessToast('The attachment has been uploaded.');
-    } catch {
+    } catch (err) {
+      console.log('upload err', err);
+
       addErrorToast('There was an error uploading the attachment. Try again.');
     }
 

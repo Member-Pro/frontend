@@ -26,10 +26,10 @@ export default Vue.extend({
   props: {
     objectType: {
       type: String,
-      required: true,
+      required: false,
     },
     objectId: {
-      required: true,
+      required: false,
     },
     // TODO: support multiple uploads... will likely require backend changes
 

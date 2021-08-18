@@ -10,6 +10,14 @@ export default {
     return attachment;
   },
 
+  async getAll(): Promise<Attachment[]> {
+    const url = '/attachments';
+
+    const response = await api.get(url);
+    const attachments = response.data.map((x: any) => new Attachment(x));
+    return attachments;
+  },
+
   async search(objectType: string, objectId: number): Promise<Attachment[]> {
     const query = objectToQueryString({ objectType, objectId });
     const url = `/attachments?${query}`;

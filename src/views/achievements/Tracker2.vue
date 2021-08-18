@@ -40,14 +40,14 @@
               Jump to...
             </div>
             <ul class="list-group list-group-flush">
-              <li
-                v-for="component in components"
-                :key="component.id"
-                class="list-group-item">
-                <a :href="`#component-${component.id}`">{{ component.name }}</a>
+              <li v-for="component in components" :key="component.id" class="list-group-item">
+                 <anchor-link :targetId="`component-${component.id}`">
+                   {{ component.name }}
+                 </anchor-link>
               </li>
+
               <li class="list-group-item">
-                <a href="#attachments">Attachments</a>
+                <anchor-link targetId="attachments">Attachments</anchor-link>
               </li>
             </ul>
           </div>
@@ -63,6 +63,7 @@ import Vue from 'vue';
 import { mapActions } from 'vuex';
 import { mapFields, mapMultiRowFields } from 'vuex-map-fields';
 // import Activities from '@/components/achievementTracking/Activities.vue';
+import AnchorLink from '@/components/common/AnchorLink.vue';
 import AttachmentList from '@/components/attachments/AttachmentList.vue';
 import ComponentStateIndicator from '@/components/achievementTracking/ComponentStateIndicator.vue';
 import Requirement from '@/models/achievements/requirement';
@@ -70,6 +71,7 @@ import RequirementView from '@/components/achievementTracking/Requirement.vue';
 
 export default Vue.extend({
   components: {
+    AnchorLink,
     AttachmentList,
     ComponentStateIndicator,
     RequirementView,
