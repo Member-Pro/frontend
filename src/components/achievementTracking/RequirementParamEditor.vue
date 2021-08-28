@@ -45,6 +45,13 @@
           :options="param.options.map(x => ({ value: x, text: x }))"
           :defaultOption="{ text: '', value: '' }"
         />
+
+        <attachment-selector
+          v-if="param.inputType === 'FileSelectorSingle' || param.inputType === 'FileSelectorMultiple'"
+          :fieldId="`req${requirement.id}-${param.key}`"
+          :label="param.name"
+          v-model="param.value"
+        />
       </div>
 
       <b-button type="submit" variant="primary">Save</b-button>&nbsp;
@@ -56,6 +63,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { mapActions } from 'vuex';
+import AttachmentSelector from '@/components/forms/AttachmentSelector.vue';
 import Checkbox from '@/components/forms/Checkbox.vue';
 import DatePicker from '@/components/forms/DatePicker.vue';
 import DropDownList from '@/components/forms/DropDownList.vue';
@@ -74,6 +82,7 @@ export default Vue.extend({
     };
   },
   components: {
+    AttachmentSelector,
     Checkbox,
     DatePicker,
     DropDownList,

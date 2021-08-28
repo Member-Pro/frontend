@@ -3,11 +3,14 @@
     <upload-attachments :objectType="objectType" :objectId="objectId" class="mb-2" />
 
     <div class="attachment-list d-flex flex-wrap justify-content-start">
-      <div class="attachment text-center p-2" v-for="attachment in attachments" :key="attachment.id">
+      <div class="attachment text-center p-2 m-2" v-for="attachment in attachments" :key="attachment.id">
         <h1><b-icon-image /></h1>
-        <a :href="attachment.url" target="_blank">
+        <!-- <a :href="attachment.url" target="_blank">
           {{ attachment.fileName }}
-        </a>
+        </a> -->
+        <div class="d-flex justify-content-between">
+          <span>select</span><span>edit</span>
+        </div>
       </div>
     </div>
   </div>
@@ -23,10 +26,10 @@ export default Vue.extend({
   props: {
     objectType: {
       type: String,
-      required: true,
+      required: false,
     },
     objectId: {
-      required: true,
+      required: false,
     },
   },
   components: {
@@ -52,11 +55,16 @@ export default Vue.extend({
   },
   methods: {
     ...mapActions('attachments', [
+      'loadAll',
       'searchAttachments',
     ]),
 
     async refresh() {
-      await this.searchAttachments({ objectType: this.objectType, objectId: this.objectId });
+      if (this.objectType && this.objectId) {
+        await this.searchAttachments({ objectType: this.objectType, objectId: this.objectId });
+      } else {
+        await this.loadAll();
+      }
     },
   },
 });
@@ -67,7 +75,8 @@ export default Vue.extend({
 @import '~bootstrap/scss/variables';
 
 .attachment {
-  width: 125px;
+  border: 1px solid gray;
+  width: 150px;
   max-height: 100px;
 
   &:hover {

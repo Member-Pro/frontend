@@ -2,7 +2,7 @@
   <div>
     <h1>Attachments</h1>
 
-    <attachment-browser />
+    <attachment-browser :allowMultipleSelection="true" />
   </div>
 </template>
 

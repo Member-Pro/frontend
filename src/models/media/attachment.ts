@@ -17,6 +17,8 @@ export default class Attachment {
   public description = '';
   public createdOn = '';
 
+  public variantUrls: any | null = null;
+
   constructor(data?: any) {
     if (data) {
       Object.assign(this, data);

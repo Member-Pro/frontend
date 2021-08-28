@@ -5,8 +5,10 @@
   "scripts": {
     "dev": "run-p serve dev:db",
     "dev:db": " json-server --watch dev\\db.json",
+    "start": "vue-cli-service serve",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build:test": "vue-cli-service build --mode nmratest",
     "lint": "vue-cli-service lint",
     "test:e2e": "vue-cli-service test:e2e",
     "test:unit": "vue-cli-service test:unit"
@@ -20,6 +22,7 @@
     "vue": "^2.6.11",
     "vue-axios": "^3.2.4",
     "vue-class-component": "^7.2.3",
+    "vue-luxon": "^0.10.0",
     "vue-property-decorator": "^9.1.2",
     "vue-router": "^3.2.0",
     "vuex": "^3.4.0",

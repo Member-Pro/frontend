@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import BootstrapVue, { IconsPlugin } from 'bootstrap-vue';
 import { Auth } from 'aws-amplify';
+import VueLuxon from 'vue-luxon';
 import authConfig from './AuthConfig';
 import App from './App.vue'
 import router from './router'
@@ -10,6 +11,8 @@ import 'bootstrap/scss/bootstrap.scss';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
+
+Vue.use(VueLuxon);
 
 Vue.config.productionTip = false;
 
