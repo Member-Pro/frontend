@@ -3,6 +3,8 @@
     <b-form-checkbox
       :id="fieldId"
       v-model="inputVal"
+      value="true"
+      unchecked-value="false"
       @input="handleInput"
     >
       {{ label }}

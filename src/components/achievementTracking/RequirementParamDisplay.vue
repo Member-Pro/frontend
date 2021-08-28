@@ -6,7 +6,10 @@
           {{ param.name }}
         </dt>
         <dd class="col-md-9" :key="`${param.key}-value`">
-          <template v-if="param.value">
+          <template v-if="param.inputType === 'Checkbox'">
+            {{ param.value === 'true' ? 'Yes' : 'No' }}
+          </template>
+          <template v-else-if="param.value">
             {{ param.value }}
           </template>
           <i class="text-muted" v-else>No value...</i>
