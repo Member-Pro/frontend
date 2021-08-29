@@ -52,6 +52,11 @@
           :label="param.name"
           v-model="param.value"
         />
+
+        <attachment-display
+          v-if="param.inputType === 'FileSelectorSingle' || param.inputType === 'FileSelectorMultiple'"
+          :attachmentIds="param.value"
+        />
       </div>
 
       <b-button type="submit" variant="primary">Save</b-button>&nbsp;
@@ -63,6 +68,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import { mapActions } from 'vuex';
+import AttachmentDisplay from '@/components/attachments/AttachmentDisplay.vue';
 import AttachmentSelector from '@/components/forms/AttachmentSelector.vue';
 import Checkbox from '@/components/forms/Checkbox.vue';
 import DatePicker from '@/components/forms/DatePicker.vue';
@@ -82,6 +88,7 @@ export default Vue.extend({
     };
   },
   components: {
+    AttachmentDisplay,
     AttachmentSelector,
     Checkbox,
     DatePicker,

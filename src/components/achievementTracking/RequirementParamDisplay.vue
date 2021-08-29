@@ -9,9 +9,16 @@
           <template v-if="param.inputType === 'Checkbox'">
             {{ param.value === 'true' ? 'Yes' : 'No' }}
           </template>
+
+          <attachment-display
+            v-else-if="param.inputType === 'FileSelectorSingle' || param.inputType === 'FileSelectorMultiple'"
+            :attachmentIds="param.value"
+          />
+
           <template v-else-if="param.value">
             {{ param.value }}
           </template>
+
           <i class="text-muted" v-else>No value...</i>
         </dd>
       </template>
@@ -21,6 +28,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import AttachmentDisplay from '@/components/attachments/AttachmentDisplay.vue';
 
 export default Vue.extend({
   props: {
@@ -28,6 +36,9 @@ export default Vue.extend({
       type: Object,
       required: true,
     },
+  },
+  components: {
+    AttachmentDisplay,
   },
 });
 </script>

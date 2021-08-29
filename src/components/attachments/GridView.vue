@@ -1,6 +1,6 @@
 <template>
   <div class="attachment-browser grid-view">
-    <upload-attachments class="mb-2" />
+    <upload-attachments v-if="showUpload" class="mb-2" />
 
     <div class="attachments row">
       <div
@@ -66,6 +66,11 @@ export default Vue.extend({
     },
     allowSelection: {
       type: Boolean,
+    },
+    showUpload: {
+      type: Boolean,
+      required: false,
+      default: () => true,
     },
     selectedIds: {
       type: Array,

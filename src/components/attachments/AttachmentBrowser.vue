@@ -23,8 +23,9 @@ export default Vue.extend({
       required: false,
     },
     selectedIds: {
-      type: Array,
+      type: [ Array, String ],
       required: false,
+      default: () => [],
     },
     objectType: {
       type: String,
@@ -76,6 +77,8 @@ export default Vue.extend({
       } else {
         this.selectIds = [ ...this.selectIds.filter((x: any) => x !== attachId) ];
       }
+
+      this.$emit('selectionChanged', this.selectIds);
     },
   },
 });

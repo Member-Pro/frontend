@@ -12,8 +12,13 @@
       size="xl"
       title="Select attachment"
       no-close-on-backdrop
+      @ok="handleInput"
     >
-      <attachment-browser :allowMultipleSelection="allowMultipleSelection"/>
+      <attachment-browser
+        :allowMultipleSelection="allowMultipleSelection"
+        :selectedIds="selectedIds"
+        @selectionChanged="selectionChanged"
+      />
     </b-modal>
   </div>
 </template>
@@ -35,11 +40,18 @@ export default Vue.extend({
   data(): any {
     return {
       showSelector: false,
+      selectedIds: this.value,
     };
   },
   methods: {
     openFileSelector() {
       this.showSelector = true;
+    },
+    selectionChanged(val) {
+      this.selectedIds = val;
+    },
+    handleInput() {
+      this.$emit('input', this.selectedIds.join(','));
     },
   },
 });
