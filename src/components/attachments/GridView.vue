@@ -45,7 +45,7 @@
                 </template>
 
                 <b-dropdown-item href="#">Edit</b-dropdown-item>
-                <b-dropdown-item href="#">Delete</b-dropdown-item>
+                <b-dropdown-item @click="deleteAttachment(attachment.id)">Delete</b-dropdown-item>
               </b-dropdown>
             </span>
           </div>
@@ -57,6 +57,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { mapActions } from 'vuex';
 import UploadAttachments from './UploadAttachments.vue';
 
 export default Vue.extend({
@@ -85,6 +86,12 @@ export default Vue.extend({
     };
   },
   methods: {
+    ...mapActions('attachments', [
+      'delete',
+    ]),
+    async deleteAttachment(id: number): Promise<void> {
+      await this.delete({ id: id });
+    },
     toggleSelection(attachId: number): void {
       // The parent component will handle updating state
       this.$emit('selectionChanged', attachId);

@@ -47,4 +47,10 @@ export default {
     const attachment = new Attachment(response.data);
     return attachment;
   },
+
+  async delete(id: number): Promise<void> {
+    const url = `/attachments/${id}`;
+
+    await api.delete(url);
+  },
 };

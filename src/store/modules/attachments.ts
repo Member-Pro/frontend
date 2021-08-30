@@ -43,6 +43,9 @@ const mutations = {
   RESET_UPLOAD(state: AttachmentState) {
     state.upload.file = null;
   },
+  REMOVE_ATTACHMENT(state: AttachmentState, id: number): void {
+    state.attachments = state.attachments.filter(x => x.id !== id);
+  },
 };
 
 const actions = {
@@ -93,6 +96,20 @@ const actions = {
     }
 
     commit('SET_IS_UPLOADING', false);
+  },
+
+  async delete({ commit }: { commit: any}, { id }): Promise<void> {
+    if (!confirm('Are you sure you want to delete this attachment?')) {
+      return;
+    }
+
+    try {
+      await attachmentService.delete(id);
+      commit('REMOVE_ATTACHMENT', id);
+      addSuccessToast('The attachment has been deleted.');
+    } catch {
+      addErrorToast('There was an error deleting the attachment. Try again.');
+    }
   },
 };
 
