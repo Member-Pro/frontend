@@ -1,7 +1,7 @@
 <template>
   <b-navbar toggleable="lg" type="dark" variant="dark">
     <div class="container">
-      <b-navbar-brand to="/">MemberPro</b-navbar-brand>
+      <!-- <b-navbar-brand to="/">MemberPro</b-navbar-brand> -->
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -19,7 +19,7 @@
           <b-nav-item to="/login" v-if="!isAuthenticated">Sign in</b-nav-item>
           <b-nav-item-dropdown right v-if="isAuthenticated">
             <!-- Using 'button-content' slot -->
-            <template slot="button-content">{{ userName }}</template>
+            <template slot="button-content">Hi, {{ userName }}</template>
             <b-dropdown-item to="/user/profile">Profile</b-dropdown-item>
             <b-dropdown-item href="#" v-on:click="logout">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>

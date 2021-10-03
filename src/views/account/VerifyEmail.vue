@@ -7,6 +7,10 @@
 
           <!-- <auth-alerts /> -->
 
+          <p>
+            Please check your email and enter the verification code below to verify your email account.
+          </p>
+
           <b-form @submit.prevent="submit">
             <b-form-group label="Email address" label-for="emailInput" label-sr-only>
               <b-form-input

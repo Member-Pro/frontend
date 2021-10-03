@@ -1,14 +1,14 @@
 <template>
   <div id="signup-page">
 
-    <div class="row justify-content-md-center">
-      <div class="col-md-6">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-6 order-2 order-lg-1">
         <h1 class="mb-4">
           Sign Up
 
-          <small class="text-muted">
+          <!-- <small class="text-muted">
             It's quick, easy and free!
-          </small>
+          </small> -->
         </h1>
 
         <div class="text-danger" v-if="!isFormValid">
@@ -154,6 +154,11 @@
             Sign Up
           </b-button>
         </b-form>
+      </div>
+      <div class="col-md-10 col-lg-4 col-xl-6 d-flex order-1 order-lg-2">
+
+        <h2>Benefits</h2>
+
       </div>
     </div>
 
