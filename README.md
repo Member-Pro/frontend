@@ -6,6 +6,15 @@ npm install
 ```
 
 ### Compiles and hot-reloads for development
+
+The frontend is configured to run at `http://member-pro.local:8080`. Ensure you update your local hosts file 
+to point this domain to `127.0.0.1`.
+
+```
+npm start
+```
+
+Alternatively you can use
 ```
 npm run serve
 ```
