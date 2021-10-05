@@ -3,7 +3,7 @@
     <!-- TODO: Get site name from settings -->
     <div class="container">
       <span class="display-4">
-        Central Dispatch
+        NMRA Central
       </span>
     </div>
   </header>

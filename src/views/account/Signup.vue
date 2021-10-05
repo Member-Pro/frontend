@@ -1,15 +1,15 @@
 <template>
   <div id="signup-page">
+    <h1 class="mb-4">
+        Sign Up
+
+        <!-- <small class="text-muted">
+          It's quick, easy and free!
+        </small> -->
+      </h1>
 
     <div class="row d-flex justify-content-center">
       <div class="col-md-10 col-lg-8 col-xl-6 order-2 order-lg-1">
-        <h1 class="mb-4">
-          Sign Up
-
-          <!-- <small class="text-muted">
-            It's quick, easy and free!
-          </small> -->
-        </h1>
 
         <div class="text-danger" v-if="!isFormValid">
           <p>It looks like some things aren't quite right. Check the issues below and try again.</p>
@@ -92,6 +92,18 @@
                 placeholder="Password"
                 required
               />
+
+              <template v-slot:description>
+                <span id="password-requirements-tip">
+                  <b-icon icon="info-circle"></b-icon>
+                  Password Requirements
+                </span>
+
+                <b-tooltip target="password-requirements-tip" triggers="hover" placement="bottom">
+                  Passwords must be at least 8 characters and contain an upper-case letter, lower-case letter,
+                  and number.
+                </b-tooltip>
+              </template>
             </b-form-group>
 
             <b-form-group
@@ -155,9 +167,16 @@
           </b-button>
         </b-form>
       </div>
-      <div class="col-md-10 col-lg-4 col-xl-6 d-flex order-1 order-lg-2">
+      <div class="col-md-10 col-lg-4 col-xl-6 order-1 order-lg-2">
 
         <h2>Benefits</h2>
+
+        <ul>
+          <li>Thing 1</li>
+          <li>Thing 2</li>
+          <li>Thing 3</li>
+          <li>Thing 4</li>
+        </ul>
 
       </div>
     </div>
